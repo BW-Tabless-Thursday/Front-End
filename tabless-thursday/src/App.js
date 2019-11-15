@@ -1,24 +1,26 @@
 import React from 'react';
-import './App.css';
+import { Link, Route, withRouter } from "react-router-dom";
+
+import {getToken} from "./utils/api";
+import PriviteRoute from "./components/PriviteRoute";
+
+import Login from "./components/In_Out/Login";
+import Header from "./components/Header";
+import Signup from "./components/In_Out/Signup";
 
 function App() {
+  const loggedIn = getToken();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Route exact path="/login" component={Login}/>
+      <Link to="/signup">Sign up</Link>
+      <Route exact path="/signup" component={Signup}/>
+      <Link to="/login">Login</Link>
+
+      <PriviteRoute path="/" component={Header}/>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App);
