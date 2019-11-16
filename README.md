@@ -8,3 +8,4 @@
 5. INCLUDING Material UI for modals and other requested effects
 6. INCLUDING Thumb.io for preview of websites from list link elements
 7. INCLUDING Auth0 for a way to do username and password stuff
+8. 
