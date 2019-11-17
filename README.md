@@ -11,4 +11,5 @@
 -- https://www.thum.io/documentation/api/url
 7. INCLUDING Auth0 for a way to do username and password stuff
 -- https://auth0.com/docs/api/authentication#authentication-methods
-8. 
+8. React Icons installed?
+--npm commnad: npm install react-icons
