@@ -11,6 +11,7 @@
 inside the expansion you can have the extended note and the larger image?
 -- check for dialog (under feedback) for create form or delete verify note
 -- use badges (under data display) as a number above each category
+-- 
 6. INCLUDING Thumb.io for preview of websites from list link elements
 -- https://www.thum.io/documentation/api/url
 7. INCLUDING Auth0 for a way to do username and password stuff
@@ -20,6 +21,8 @@ inside the expansion you can have the extended note and the larger image?
 -- also look under icons in material ui section for link to materialdesignicons.com
 9. at this point I was able to do the npm start to get things working
 10. Do we want to include reactStrap? Get that Modal and 
+11. npm install typeface-roboto --save
+-- import 'typeface-roboto';
 
 Some things I want to get done today?
 1. That hero image at the login and start up area
