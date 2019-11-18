@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../../utils/api";
+import "./Login.css";
+
 
 export default function Login(props) {
 	const [error, setError] = useState()
@@ -31,13 +34,15 @@ export default function Login(props) {
 	}
 	
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} className="Form">
 			{error && <div>{error}</div>}
 
-			<input type="text" name="username" placeholder="Username" value={data.username} onChange={handleChange} />
-			<input type="password" name="password" placeholder="Password" value={data.password} onChange={handleChange} />
+			<input type="text" name="username" placeholder="Username" value={data.username} onChange={handleChange} className="Input"/>
+			<input type="password" name="password" placeholder="Password" value={data.password} onChange={handleChange} className="Input"/>
 
-			<button type="submit">Login</button>
+			<button type="submit" className="MainButton">Login</button>
+
+			<Link to="/signup" className="SecondButton">Sign up</Link>
 		</form>
 	)
 }

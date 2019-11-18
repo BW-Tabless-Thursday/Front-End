@@ -1,0 +1,52 @@
+/* List of colors:
+red: #F76c6c;
+yellow: #F8E9A1;
+light blue: #A8D0E6;
+blue: #374785;
+dark blue: #24305E; */
+
+.Form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #F76C6C;
+    margin: 18.75rem auto;
+    padding: 6.25rem;
+    width: 15%;
+}
+
+.Input{
+    width: 70%;
+    margin: 25px auto;
+    font-size: 200%;
+    text-align: center;
+    border: 1px solid #24305E;
+    border-radius: 15px;
+    color: #24305E;
+}
+
+.MainButton{
+    width: 150px;
+    height: 35px;
+    margin: 25px auto;
+    font-size: 150%;
+    text-align: center;
+    border: 1px solid #24305E;
+    border-radius: 15px;
+    color: #24305E;
+}
+
+.MainButton:hover{
+    background-color: #24305E;
+    color: #F8E9A1;
+    cursor: pointer;
+}
+
+.SecondButton{
+    color: #24305E; 
+}
+
+.SecondButton:hover{
+    color: #F8E9A1;
+}

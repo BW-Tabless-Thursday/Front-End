@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Route, withRouter } from "react-router-dom";
+import "./App.css";
 
 import {getToken} from "./utils/api";
 import PriviteRoute from "./components/PriviteRoute";
@@ -12,11 +13,9 @@ function App() {
   const loggedIn = getToken();
 
   return (
-    <div>
+    <div className="WholeApp">
       <Route exact path="/login" component={Login}/>
-      <Link to="/signup">Sign up</Link>
       <Route exact path="/signup" component={Signup}/>
-      <Link to="/login">Login</Link>
 
       <PriviteRoute path="/" component={Header}/>
     </div>
