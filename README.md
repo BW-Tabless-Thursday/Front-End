@@ -14,7 +14,7 @@ inside the expansion you can have the extended note and the larger image?
 -- 
 6. INCLUDING Thumb.io for preview of websites from list link elements
 -- https://www.thum.io/documentation/api/url
-7. INCLUDING Auth0 for a way to do username and password stuff
+7. NOT INCLUDING Auth0 for a way to do username and password stuff
 -- https://auth0.com/docs/api/authentication#authentication-methods
 8. React Icons installed?
 -- npm commnad: npm install react-icons
