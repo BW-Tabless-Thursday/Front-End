@@ -10,6 +10,9 @@ import Login from "./components/In_Out/Login";
 import Header from "./components/Header";
 import Signup from "./components/In_Out/Signup";
 
+// DELETE LATER - JUST TO SEE WHAT I'VE GOT
+import TabPreview from "./components/Tabs/Tab";
+
 function App() {
   const loggedIn = getToken();
 
@@ -19,6 +22,7 @@ function App() {
       <Route exact path="/signup" component={Signup}/>
 
       <PriviteRoute path="/" component={Header}/>
+      <PriviteRoute exact path="/account" component={TabPreview}/>
     </div>
   );
 }
