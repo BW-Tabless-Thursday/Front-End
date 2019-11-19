@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../../utils/api";
 import TabPreview from "./Tab";
+import 'typeface-roboto';
 
 export default function ListOfTabs(props) {
 	const [tabs, setTabs] = useState([])
@@ -31,7 +32,7 @@ export default function ListOfTabs(props) {
 				{tabs &&
 					tabs.map(tab => (
                         <div>
-                            <h1>{tab.name}</h1>
+                            {/* <h1>{tab.name}</h1> */}
                             <TabPreview key={tab.id} tab={tab}/>
                         </div>
 				))}
