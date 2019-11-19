@@ -26,7 +26,11 @@ export default function Login(props) {
 			.then(result => {
 				localStorage.setItem("token", result.data.token);
 				// change the way!!!!
-				props.history.push("/account")
+				console.log(result.data)
+				props.history.push({
+					pathname: "/account",
+					state: result.data.id
+				})
 			})
 			.catch(err => {
 				setError(err.response.data.message)
