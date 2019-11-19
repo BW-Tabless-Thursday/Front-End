@@ -46,7 +46,9 @@ const useStyles = makeStyles(theme => ({
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography>Notes: {props.tab.notes}<br />Categories: {props.tab.category}</Typography>
-              
+              <div>
+              <img src ={`https://image.thum.io/get/${props.tab.url}/`} />
+              </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </div>
