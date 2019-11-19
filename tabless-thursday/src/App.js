@@ -20,9 +20,10 @@ function App() {
     <div className="WholeApp">
       <Route exact path="/login" component={Login}/>
       <Route exact path="/signup" component={Signup}/>
+      {/* <Link to="/account/tabs/:id">Tabs</Link> */}
 
       <PriviteRoute path="/" component={Header}/>
-      <PriviteRoute exact path="/account/tabs/:id" component={ListOfTabs}/>
+      <PriviteRoute exact path="/account" component={ListOfTabs}/>
     </div>
   );
 }

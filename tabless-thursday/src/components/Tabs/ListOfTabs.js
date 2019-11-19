@@ -11,13 +11,12 @@ import TabPreview from "./Tab";
 
 export default function ListOfTabs(props) {
 	const [tabs, setTabs] = useState([])
-
 	useEffect(() => {
 		api()
-        //   .get(`/tabs/${user_id}`)
-          .get(`tabs/${props.path.params.user_id}`)
+          .get(`tabs/${props.location.state}`)
 		  .then(response => {
               console.log(response.data.tabs)
+             
 			setTabs(response.data.tabs);
 		  })
 		  .catch(error => {
@@ -31,7 +30,10 @@ export default function ListOfTabs(props) {
 			<div>
 				{tabs &&
 					tabs.map(tab => (
-						<TabPreview key={tab.id} tab={tab}/>
+                        <div>
+                            <h1>{tab.name}</h1>
+                            <TabPreview key={tab.id} tab={tab}/>
+                        </div>
 				))}
 			</div>
         </div>

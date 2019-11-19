@@ -24,6 +24,9 @@ export default function TabPreview(props){
     return(
         <div>
             <h3>{props.tab.name}</h3>
+            <p>{props.tab.url}</p>
+            <p>{props.tab.notes}</p>
+            <p>{props.tab.category}</p>
         </div>
     )
 }
