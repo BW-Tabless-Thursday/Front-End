@@ -11,7 +11,7 @@ import Header from "./components/Header";
 import Signup from "./components/In_Out/Signup";
 
 // DELETE LATER - JUST TO SEE WHAT I'VE GOT
-import TabPreview from "./components/Tabs/Tab";
+import ListOfTabs from "./components/Tabs/ListOfTabs";
 
 function App() {
   const loggedIn = getToken();
@@ -22,7 +22,7 @@ function App() {
       <Route exact path="/signup" component={Signup}/>
 
       <PriviteRoute path="/" component={Header}/>
-      <PriviteRoute exact path="/account" component={TabPreview}/>
+      <PriviteRoute exact path="/account/tabs/:id" component={ListOfTabs}/>
     </div>
   );
 }
