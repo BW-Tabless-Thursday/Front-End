@@ -9,6 +9,7 @@ import React, { useState, useEffect } from "react";
 import api from "../../utils/api";
 import TabPreview from "./Tab";
 import CreateTabs from "./CreateTabs";
+import 'typeface-roboto';
 
 export default function ListOfTabs(props) {
 	const [tabs, setTabs] = useState([])
