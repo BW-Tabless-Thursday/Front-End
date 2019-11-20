@@ -5,7 +5,8 @@ import {
   const initialState = {
     tabs: [],
     error: "",
-    isFetching: false 
+    isFetching: false,
+    id: localStorage.getItem("user") || null
   };
 
   export default function reducer(state = initialState, action) {
@@ -14,7 +15,8 @@ import {
       case ADD_NEW_TAB:
         return {
           ...state,
-          smurfs: [
+          isFetching: false,
+          tabs: [
             ...state.tabs,
             action.payload
           ]

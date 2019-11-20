@@ -37,7 +37,7 @@ export default function ListOfTabs(props) {
                         </div>
 				))}
 			</div>
-			<CreateTabs />
+			<CreateTabs location={props.location} tabs={tabs} setTabs={setTabs}/>
         </div>
 	)
 }

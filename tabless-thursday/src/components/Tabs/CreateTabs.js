@@ -7,8 +7,9 @@
 //submit button
 
 import React, { useState } from 'react';
-import { connect } from "react-redux";
-import {addTab} from "../../actions/tab_action";
+import api from "../../utils/api";
+// import { connect } from "react-redux";
+// import {addTab} from "../../actions/tab_action";
 
 function CreateTabs(props) {
     const [tabTitle, setTabTitle] = useState('');
@@ -19,32 +20,59 @@ function CreateTabs(props) {
 
     function handleSubmit(e){
         e.preventDefault();
-        props.addTab({
+
+        const newTab = {
             id: Date.now(),
             url: tabLink,
             name: tabTitle,
-            notes: tabNotes
-            // user_id: 1,
-            // category_id: 2,
-            // category: "School"
+            notes: tabNotes,
+            user_id: props.location.state,
+            category_id: 2,
+            // category: ""
+        }
+
+        console.log(newTab);
+
+        api()
+        .post(`/tabs/${props.location.state}`, newTab)
+        .then(response => {
+            console.log(response.data.tabs);
+            // props.setTabs([...props.tabs, newTab])
+            setTabTitle("");
+            setTabNotes("");
+            setTabLink("")
+            // addTab();
+        })
+        .catch((error) => {
+            console.log(error);
         });
-        setTabTitle("");
-        setTabNotes("");
-        setTabLink("")
-      }
+    }
+
+    // function addTab(){
+    //     const newTab = {
+    //         id: Date.now(),
+    //         url: tabLink,
+    //         name: tabTitle,
+    //         notes: tabNotes,
+    //         user_id: props.location.state,
+    //         category_id: null,
+    //         category: ""
+    //     }
+    //     props.setTabs([...props.tabs, newTab])
+    //     setTabTitle("");
+    //     setTabNotes("");
+    //     setTabLink("")
+    // }
 
     function handleNameChange(e){
-        e.preventDefault();
         setTabTitle(e.target.value)
     }
 
     function handleNoteChange(e){
-        e.preventDefault();
         setTabNotes(e.target.value)
     }
 
     function handleUrlChange(e){
-        e.preventDefault();
         setTabLink(e.target.value)
     }
 
@@ -91,16 +119,17 @@ function CreateTabs(props) {
     )
 }
 
-function mapStateToProps(state) {
-    return {
-      tabs: state.tabs,
-      error: state.error,
-      isFetching: state.isFetching
-    };
-  };
+// function mapStateToProps(state) {
+//     return {
+//       tabs: state.tabs,
+//       error: state.error,
+//       isFetching: state.isFetching
+//     };
+//   };
   
-  const mapDispatchToProps = {
-      addTab
-  }
+//   const mapDispatchToProps = {
+//       addTab
+//   }
   
-  export default connect(mapStateToProps, mapDispatchToProps)(CreateTabs);
+export default CreateTabs;
+//   export default connect(mapStateToProps, mapDispatchToProps)(CreateTabs);
