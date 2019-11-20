@@ -26,6 +26,19 @@ export default function ListOfTabs(props) {
 		  });
 	  }, [props.location.state]);
 
+	  function addTab(e, tab){
+        e.preventDefault();
+
+        api()
+			.post(`/tabs/${props.location.state}`, tab)
+			.then(response => {
+				console.log(response.data.tabs);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+    }
+
 	return (
 		<div>
             <h3>My tabs</h3>
@@ -38,7 +51,7 @@ export default function ListOfTabs(props) {
                         </div>
 				))}
 			</div>
-			<CreateTabs location={props.location} tabs={tabs} setTabs={setTabs}/>
+			<CreateTabs location={props.location} tabs={tabs} setTabs={setTabs} addTab={addTab}/>
         </div>
 	)
 }

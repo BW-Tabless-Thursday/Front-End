@@ -6,63 +6,79 @@
 //Category : where you can select or input a category for organization
 //submit button
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from "../../utils/api";
 // import { connect } from "react-redux";
 // import {addTab} from "../../actions/tab_action";
 
 function CreateTabs(props) {
-    const [tabTitle, setTabTitle] = useState('');
-    const [tabNotes, setTabNotes] = useState('');
-    const [tabLink, setTabLink] = useState('');
+    // const [newTab, setNewTab] = useState({
+    //     "id": "",
+    //     "url": "",
+    //     "name": "",
+    //     "notes": "",
+    //     "user_id": "",
+    //     "category_id": "",
+    //     "category": ""
+    // })
+    const [tabTitle, setTabTitle] = useState("");
+    const [tabNotes, setTabNotes] = useState("");
+    const [tabLink, setTabLink] = useState("");
 
-    // const [categories, setCategories] = useState('');//does this need to be an array?
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        api()
+            .get("/tabs/categories")
+            .then((result) => {
+                setCategories(result.data)
+                console.log(result.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [])
 
     function handleSubmit(e){
         e.preventDefault();
-
-        const newTab = {
-            id: Date.now(),
-            url: tabLink,
-            name: tabTitle,
-            notes: tabNotes,
-            user_id: props.location.state,
-            category_id: 2,
+        
+        const addNewTab = {
+            "id": 7,
+            "url": tabLink,
+            "name": tabTitle,
+            "notes": tabNotes,
+            "user_id": props.location.state,
+            "category_id": 2
             // category: ""
         }
 
-        console.log(newTab);
+        props.addTab(e, addNewTab)
 
-        api()
-        .post(`/tabs/${props.location.state}`, newTab)
-        .then(response => {
-            console.log(response.data.tabs);
-            // props.setTabs([...props.tabs, newTab])
-            setTabTitle("");
-            setTabNotes("");
-            setTabLink("")
-            // addTab();
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        // const addNewTab = {
+        //     id: Date.now(),
+        //     url: tabLink,
+        //     name: tabTitle,
+        //     notes: tabNotes,
+        //     user_id: props.location.state,
+        //     category_id: 2,
+        //     // category: ""
+        // }
+
+        // console.log(addNewTab);
+
+        // api()
+        // .post(`/tabs/${props.location.state}`, addNewTab)
+        // .then(response => {
+        //     console.log(response.data.tabs);
+        //     // props.setTabs([...props.tabs, addNewTab])
+        //     setTabTitle("");
+        //     setTabNotes("");
+        //     setTabLink("")
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
     }
-
-    // function addTab(){
-    //     const newTab = {
-    //         id: Date.now(),
-    //         url: tabLink,
-    //         name: tabTitle,
-    //         notes: tabNotes,
-    //         user_id: props.location.state,
-    //         category_id: null,
-    //         category: ""
-    //     }
-    //     props.setTabs([...props.tabs, newTab])
-    //     setTabTitle("");
-    //     setTabNotes("");
-    //     setTabLink("")
-    // }
 
     function handleNameChange(e){
         setTabTitle(e.target.value)
@@ -75,6 +91,11 @@ function CreateTabs(props) {
     function handleUrlChange(e){
         setTabLink(e.target.value)
     }
+
+    // function handleCategoryChange(e){
+    //     // add params.match ?
+    //     setCategories(e.target.value) 
+    // }
 
     return(
         <div>
@@ -105,12 +126,12 @@ function CreateTabs(props) {
 
                 {/* <select 
                     name="category" 
-                    value={tab.category} 
-                    onChange={handleChange}>
+                    value={categories.category} 
+                    onChange={handleCategoryChange}>
                         {categories &&
-                            categories.map(category =>
-                                <option value={category.category} >{category.category}</option>
-                        )}
+                            categories.map((category) =>(
+                                <option key={category.id} value={category.category} >{category.category}</option>
+                            ))}
                 </select> */}
 
                 <button type="submit">Add new Tab</button>
