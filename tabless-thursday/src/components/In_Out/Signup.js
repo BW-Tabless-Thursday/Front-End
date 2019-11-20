@@ -36,8 +36,22 @@ export default function Signup(props) {
 		<form onSubmit={handleSubmit} className="Form">
 			{error && <div>{error}</div>}
 
-			<input type="text" name="username" placeholder="Username" value={data.username} onChange={handleChange} className="Input"/>
-			<input type="password" name="password" placeholder="Password" value={data.password} onChange={handleChange} className="Input"/>
+			<input 
+				type="text" 
+				name="username" 
+				placeholder="Username" 
+				value={data.username} 
+				onChange={handleChange} 
+				className="Input"
+			/>
+			<input 
+				type="password" 
+				name="password" 
+				placeholder="Password" 
+				value={data.password} 
+				onChange={handleChange} 
+				className="Input"
+			/>
 
 			<button type="submit" className="MainButton">Sign up</button>
 

@@ -9,6 +9,7 @@ export default function api() {
 		baseURL: "https://tabless-be.herokuapp.com/api",
 		headers: {
 			Authorization: getToken(),
+			"Content-Type": "application/json"
 		},
 	})
 }
