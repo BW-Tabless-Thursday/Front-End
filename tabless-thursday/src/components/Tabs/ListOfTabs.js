@@ -26,18 +26,18 @@ export default function ListOfTabs(props) {
 		  });
 	  }, [props.location.state]);
 
-	  function addTab(e, tab){
-        e.preventDefault();
+	//   function addTab(e, tab){
+    //     e.preventDefault();
 
-        api()
-			.post(`/tabs/${props.location.state}`, tab)
-			.then(response => {
-				console.log(response.data.tabs);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-    }
+    //     api()
+	// 		.post(`/tabs/${props.location.state}`, tab)
+	// 		.then(response => {
+	// 			console.log(response.data.tabs);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log(error);
+	// 		});
+    // }
 
 	return (
 		<div>
@@ -51,7 +51,7 @@ export default function ListOfTabs(props) {
                         </div>
 				))}
 			</div>
-			<CreateTabs location={props.location} tabs={tabs} setTabs={setTabs} addTab={addTab}/>
+			<CreateTabs location={props.location} tabs={tabs} setTabs={setTabs} />
         </div>
 	)
 }

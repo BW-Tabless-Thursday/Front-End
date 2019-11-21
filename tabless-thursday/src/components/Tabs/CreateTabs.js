@@ -51,7 +51,7 @@ function CreateTabs(props) {
             // category: ""
         }
 
-        props.addTab(e, addNewTab)
+        // props.addTab(e, addNewTab)
 
         // const addNewTab = {
         //     id: Date.now(),
@@ -65,18 +65,16 @@ function CreateTabs(props) {
 
         // console.log(addNewTab);
 
-        // api()
-        // .post(`/tabs/${props.location.state}`, addNewTab)
-        // .then(response => {
-        //     console.log(response.data.tabs);
-        //     // props.setTabs([...props.tabs, addNewTab])
-        //     setTabTitle("");
-        //     setTabNotes("");
-        //     setTabLink("")
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
+        api()
+        .post(`/tabs/${props.location.state}`, addNewTab)
+        .then(response => {
+            console.log(response.data.tabs);
+            // props.setTabs([...props.tabs, addNewTab])
+            setTab({})
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
 
     const handleChange = (event) => {
