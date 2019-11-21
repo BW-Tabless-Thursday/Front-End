@@ -19,7 +19,6 @@ export default function TabPreview(props){
 			api()
 				.delete(`/tabs/${props.tab.user_id}/${props.tab.id}`)
 				.then((result) => {
-                    // ДОБАВИТИ, КУДИ БУДЕ ПЕРЕХОДИТИ І ЩО БУДЕ ВИДНО
                     props.setTabs(result.data.tabs)
 					console.log("Tab was deleted")
 				})
@@ -46,7 +45,7 @@ export default function TabPreview(props){
 			</button>
 
             {editing &&
-                <TabEdit  tab={props.setTabs} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>}
+                <TabEdit  tab={props.tab} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>}
         </div>
     )
 }

@@ -108,7 +108,7 @@ function CreateTabs(props) {
                     onChange={handleChange}>
                         {categories &&
                             categories.map(category =>
-                                <option value={category.category} >{category.category}</option>
+                                <option key={category.id} value={category.category} >{category.category}</option>
                         )}
                 </select>
 

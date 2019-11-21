@@ -2,23 +2,27 @@ import React, { useState, useEffect } from "react";
 import api from "../../utils/api";
 
 export default function TabEdit(props) {
+
+	const [categories, setCategories] = useState([]);
 	const [tab, setTab] = useState({
-		id : props.key,
-		url : "",
-        name : "",
-		notes : "",
-		// user_id: "",
-		// category_id: "",
-        category : "",	
+		// "id" : props.tab.id,
+		"url" : "",
+        "name" : "",
+		"notes" : "",
+		"user_id": props.location.state,
+		// "category_id": categories.id,
+        "category" : categories.category,	
     })
 
-    const [categories, setCategories] = useState([]);
+    
     
     useEffect(() => {
         api()
             .get("/tabs/categories")
             .then((result) => {
-                setCategories(result.data)
+				console.log(result.data)
+				setCategories(result.data)
+				
             })
             .catch((error) => {
                 console.log(error)
@@ -49,9 +53,10 @@ export default function TabEdit(props) {
 		console.log(tab)
 
 		api()
-			.put(`tabs/${props.location.state}/${props.key}`, tab)
+			.put(`tabs/${props.location.state}/${props.tab.id}`, tab)
 			.then((result) => {
-				props.history.push("/account")
+				props.setTabs(result.data.tabs)
+				// props.history.push("/account")
 				// props.setTabs([])
 			})
 			.catch((error) => {
@@ -93,7 +98,7 @@ export default function TabEdit(props) {
                     onChange={handleChange}>
                         {categories &&
                             categories.map(category =>
-                                <option value={category.category} >{category.category}</option>
+                                <option key={category.id} value={category.category} >{category.category}</option>
                         )}
                 </select>
                     
