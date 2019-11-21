@@ -11,7 +11,7 @@ export default function TabEdit(props) {
 		"notes" : "",
 		"user_id": props.location.state,
 		// "category_id": categories.id,
-        "category" : categories.category,	
+        // "category" : categories.category,	
     })
 
     
@@ -92,7 +92,7 @@ export default function TabEdit(props) {
 				/>
                 
                 
-                <select 
+                {/* <select 
                     name="category" 
                     value={tab.category} 
                     onChange={handleChange}>
@@ -100,7 +100,7 @@ export default function TabEdit(props) {
                             categories.map(category =>
                                 <option key={category.id} value={category.category} >{category.category}</option>
                         )}
-                </select>
+                </select> */}
                     
                 
 				<button type="submit">Save</button>
