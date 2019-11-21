@@ -32,13 +32,14 @@ export default function TabEdit(props) {
 		})
     }
 
-	const handleSubmit = (event, id) => {
+	const handleSubmit = (event) => {
         event.preventDefault()
 
 		api()
-			.put(`tabs/${props.tab.user_id}/${props.tab.id}`, tab)
+			.put(`tabs/${props.tab.user_id}/${props.tab.id}`, tab.id)
 			.then((result) => {
 				props.history.push("/account")
+				// props.setTabs([])
 			})
 			.catch((error) => {
 				console.log(error)
@@ -85,7 +86,7 @@ export default function TabEdit(props) {
                     
                 
 				<button type="submit">Save</button>
-                <button >Cancel</button>
+                <button onClick={() => props.setEditing(false)}>Cancel</button>
 			</form>
 		</>
 	)

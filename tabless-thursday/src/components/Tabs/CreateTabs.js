@@ -8,9 +8,6 @@
 
 import React, { useState, useEffect } from 'react';
 import api from "../../utils/api";
-import TabEdit from './TabEdit';
-// import { connect } from "react-redux";
-// import {addTab} from "../../actions/tab_action";
 
 function CreateTabs(props) {
 
@@ -42,35 +39,29 @@ function CreateTabs(props) {
         e.preventDefault();
         
         const addNewTab = {
-            "id": 7,
+            // "id": Date.now(),
             "url": tab.url,
             "name": tab.name,
             "notes": tab.notes,
-            "user_id": props.location.state,
-            "category_id": 2
-            // category: ""
+            // "user_id": props.location.state,
+            "category_id": categories.id
+            // "category": tab.category
         }
-
-        // props.addTab(e, addNewTab)
-
-        // const addNewTab = {
-        //     id: Date.now(),
-        //     url: tabLink,
-        //     name: tabTitle,
-        //     notes: tabNotes,
-        //     user_id: props.location.state,
-        //     category_id: 2,
-        //     // category: ""
-        // }
-
-        // console.log(addNewTab);
 
         api()
         .post(`/tabs/${props.location.state}`, addNewTab)
         .then(response => {
             console.log(response.data.tabs);
-            // props.setTabs([...props.tabs, addNewTab])
-            setTab({})
+            props.setTabs([...props.tabs, addNewTab])
+            setTab({
+                id : "",
+                url : "",
+                name : "",
+                notes : "",
+                user_id: "",
+                category_id: "",
+                category : "",
+            })
         })
         .catch((error) => {
             console.log(error);
@@ -127,17 +118,4 @@ function CreateTabs(props) {
     )
 }
 
-// function mapStateToProps(state) {
-//     return {
-//       tabs: state.tabs,
-//       error: state.error,
-//       isFetching: state.isFetching
-//     };
-//   };
-  
-//   const mapDispatchToProps = {
-//       addTab
-//   }
-  
 export default CreateTabs;
-//   export default connect(mapStateToProps, mapDispatchToProps)(CreateTabs);
