@@ -3,12 +3,12 @@ import api from "../../utils/api";
 
 export default function TabEdit(props) {
 	const [tab, setTab] = useState({
-		id : "",
+		id : props.key,
 		url : "",
         name : "",
 		notes : "",
-		user_id: "",
-		category_id: "",
+		// user_id: "",
+		// category_id: "",
         category : "",	
     })
 
@@ -23,7 +23,18 @@ export default function TabEdit(props) {
             .catch((error) => {
                 console.log(error)
             })
-    }, [])
+	}, [])
+	
+	// useEffect(() => {
+    //     api()
+	// 		.get(`tabs/${props.location.state}`)
+    //         .then((result) => {
+    //             console.log(result.data)
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //         })
+    // }, [])
 
 	const handleChange = (event) => {
 		setTab({
@@ -32,11 +43,13 @@ export default function TabEdit(props) {
 		})
     }
 
-	const handleSubmit = (event) => {
-        event.preventDefault()
+	const handleSubmit = (event, id) => {
+		event.preventDefault()
+		console.log(props.location.state)
+		console.log(tab)
 
 		api()
-			.put(`tabs/${props.tab.user_id}/${props.tab.id}`, tab.id)
+			.put(`tabs/${props.location.state}/${props.key}`, tab)
 			.then((result) => {
 				props.history.push("/account")
 				// props.setTabs([])
@@ -50,7 +63,7 @@ export default function TabEdit(props) {
 		<>
 			<h1>Edit Tab</h1>
 
-			<form onSubmit={(e) => handleSubmit(e)}>
+			<form onSubmit={(e, id) => handleSubmit(e, id)}>
 				<input
 					type="text"
 					name="name"

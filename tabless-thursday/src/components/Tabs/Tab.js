@@ -46,7 +46,7 @@ export default function TabPreview(props){
 			</button>
 
             {editing &&
-                <TabEdit tab={props.setTabs} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs}/>}
+                <TabEdit  tab={props.setTabs} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>}
         </div>
     )
 }
