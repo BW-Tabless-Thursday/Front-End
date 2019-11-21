@@ -6,104 +6,112 @@
 //Category : where you can select or input a category for organization
 //submit button
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from "../../utils/api";
+import TabEdit from './TabEdit';
 // import { connect } from "react-redux";
 // import {addTab} from "../../actions/tab_action";
 
 function CreateTabs(props) {
-    const [tabTitle, setTabTitle] = useState('');
-    const [tabNotes, setTabNotes] = useState('');
-    const [tabLink, setTabLink] = useState('');
 
-    // const [categories, setCategories] = useState('');//does this need to be an array?
+    const [tab, setTab] = useState({
+		id : "",
+		url : "",
+        name : "",
+		notes : "",
+		user_id: "",
+		category_id: "",
+        category : "",	
+    })
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        api()
+            .get("/tabs/categories")
+            .then((result) => {
+                setCategories(result.data)
+                console.log(result.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [])
 
     function handleSubmit(e){
         e.preventDefault();
-
-        const newTab = {
-            id: Date.now(),
-            url: tabLink,
-            name: tabTitle,
-            notes: tabNotes,
-            user_id: props.location.state,
-            category_id: 2,
+        
+        const addNewTab = {
+            "id": 7,
+            "url": tab.url,
+            "name": tab.name,
+            "notes": tab.notes,
+            "user_id": props.location.state,
+            "category_id": 2
             // category: ""
         }
 
-        console.log(newTab);
+        // props.addTab(e, addNewTab)
+
+        // const addNewTab = {
+        //     id: Date.now(),
+        //     url: tabLink,
+        //     name: tabTitle,
+        //     notes: tabNotes,
+        //     user_id: props.location.state,
+        //     category_id: 2,
+        //     // category: ""
+        // }
+
+        // console.log(addNewTab);
 
         api()
-        .post(`/tabs/${props.location.state}`, newTab)
+        .post(`/tabs/${props.location.state}`, addNewTab)
         .then(response => {
             console.log(response.data.tabs);
-            // props.setTabs([...props.tabs, newTab])
-            setTabTitle("");
-            setTabNotes("");
-            setTabLink("")
-            // addTab();
+            // props.setTabs([...props.tabs, addNewTab])
+            setTab({})
         })
         .catch((error) => {
             console.log(error);
         });
     }
 
-    // function addTab(){
-    //     const newTab = {
-    //         id: Date.now(),
-    //         url: tabLink,
-    //         name: tabTitle,
-    //         notes: tabNotes,
-    //         user_id: props.location.state,
-    //         category_id: null,
-    //         category: ""
-    //     }
-    //     props.setTabs([...props.tabs, newTab])
-    //     setTabTitle("");
-    //     setTabNotes("");
-    //     setTabLink("")
-    // }
-
-    function handleNameChange(e){
-        setTabTitle(e.target.value)
-    }
-
-    function handleNoteChange(e){
-        setTabNotes(e.target.value)
-    }
-
-    function handleUrlChange(e){
-        setTabLink(e.target.value)
+    const handleChange = (event) => {
+		setTab({
+			...tab,
+			[event.target.name]: event.target.value,
+		})
     }
 
     return(
         <div>
-            <form onSubmit = {handleSubmit}>
-                <input 
-                    type="text"
-                    placeholder="Name"
-                    name="Name"
-                    value={tabTitle}
-                    onChange={handleNameChange}
-                />
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <input
+					type="text"
+					name="name"
+					placeholder="Name"
+					value={tab.name}
+					onChange={handleChange}
+				/>
 
                 <input 
                     type="text"
                     placeholder="Notes"
-                    name="Notes"
-                    value={tabNotes}
-                    onChange={handleNoteChange}
+                    name="notes"
+                    value={tab.notes}
+                    onChange={handleChange}
                 />
 
                 <input 
                     type="url"
                     placeholder="URL"
-                    name="URL"
-                    value={tabLink}
-                    onChange={handleUrlChange}
+                    name="url"
+                    value={tab.url}
+                    onChange={handleChange}
                 />
 
-                {/* <select 
+                <select 
                     name="category" 
                     value={tab.category} 
                     onChange={handleChange}>
@@ -111,7 +119,7 @@ function CreateTabs(props) {
                             categories.map(category =>
                                 <option value={category.category} >{category.category}</option>
                         )}
-                </select> */}
+                </select>
 
                 <button type="submit">Add new Tab</button>
 		    </form>

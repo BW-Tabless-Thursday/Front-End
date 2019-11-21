@@ -3,12 +3,13 @@ import api from "../../utils/api";
 
 export default function TabEdit(props) {
 	const [tab, setTab] = useState({
+		id : "",
+		url : "",
         name : "",
-        url : "",
-        notes : "",
-        category : "",
-        id : "",
-        user_id: ""
+		notes : "",
+		user_id: "",
+		category_id: "",
+        category : "",	
     })
 
     const [categories, setCategories] = useState([]);
