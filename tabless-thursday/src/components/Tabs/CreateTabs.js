@@ -49,23 +49,23 @@ function CreateTabs(props) {
         }
 
         api()
-        .post(`/tabs/${props.location.state}`, addNewTab)
-        .then(response => {
-            console.log(response.data.tabs);
-            props.setTabs([...props.tabs, addNewTab])
-            setTab({
-                id : "",
-                url : "",
-                name : "",
-                notes : "",
-                user_id: "",
-                category_id: "",
-                category : "",
+            .post(`/tabs/${props.location.state}`, addNewTab)
+            .then(response => {
+                console.log(response.data.tabs);
+                props.setTabs([...props.tabs, addNewTab])
+                setTab({
+                    id : "",
+                    url : "",
+                    name : "",
+                    notes : "",
+                    user_id: "",
+                    category_id: "",
+                    category : "",
+                })
             })
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     const handleChange = (event) => {

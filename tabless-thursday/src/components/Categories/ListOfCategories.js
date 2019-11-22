@@ -1,11 +1,11 @@
-//Look at my other react items. See if we can render the same way
-//as other projects using .map to create list of categories
-
-
 import React, { useState, useEffect } from "react";
 import api from "../../utils/api";
 
-export default function ListOfCategories(){
+import CategoryCard from "./Category";
+
+import "./Category.css";
+
+export default function ListOfCategories(props){
 
     const [categories, setCategories] = useState([]);
 
@@ -20,15 +20,31 @@ export default function ListOfCategories(){
             .catch((error) => {
                 console.log(error)
             })
-	}, [])
+    }, [])
+    
+    function ShowCategories(event, id){
+        event.preventDefault();
+
+        api()
+		  .get(`tabs/${props.location.state}`)
+		  .then(response => {
+            console.log(response.data.tabs)
+            // setCategories(categories.filter((category) => category.id === id))
+            props.setTabs(props.tabs.filter((tab) => tab.category_id === id))
+		  })
+		  .catch(error => {
+			console.log(error);
+		  });
+
+    }
 
     return(
-        <div>
+        <div className="CategoriesList">
 
             {categories &&
                 categories.map(category => (
-                    <div>
-                        <h4>{category.category}</h4>
+                    <div onClick={(e) => ShowCategories(e, category.id)}>
+                        <CategoryCard key={category.id} category={category}/>
                     </div>
             ))}
 

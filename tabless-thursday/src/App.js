@@ -1,5 +1,4 @@
 import React from 'react';
-//import CssBaseline from '@material-ui/core/CssBaseline';
 import { Route, withRouter } from "react-router-dom";
 import "./App.css";
 
@@ -26,7 +25,7 @@ function App() {
       {/* <Link to="/account/tabs/:id">Tabs</Link> */}
 
       <PriviteRoute path="/" component={Header}/>
-      <PriviteRoute exact path="/account" component={ListOfCategories}/>
+      {/* <PriviteRoute exact path="/account" component={ListOfCategories}/> */}
       <PriviteRoute exact path="/categories" component={ListOfCategories}/>
       <PriviteRoute exact path="/account" component={ListOfTabs}/>
       <PriviteRoute exact path="/account/:id" component={TabEdit}/>

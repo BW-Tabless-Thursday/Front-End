@@ -7,15 +7,19 @@
 
 import React, { useState, useEffect } from "react";
 import api from "../../utils/api";
+
 import TabPreview from "./Tab";
 import CreateTabs from "./CreateTabs";
+
+import ListOfCategories from "../Categories/ListOfCategories";
+
 import 'typeface-roboto';
 
 export default function ListOfTabs(props) {
 	const [tabs, setTabs] = useState([])
 	useEffect(() => {
 		api()
-		.get(`tabs/${props.location.state}`)
+		  .get(`tabs/${props.location.state}`)
 		  .then(response => {
               console.log(response.data.tabs)
              
@@ -41,6 +45,7 @@ export default function ListOfTabs(props) {
 
 	return (
 		<div>
+			<ListOfCategories location={props.location} setTabs={setTabs} tabs={tabs}/>
             <h3>My tabs</h3>
 			<div>
 				{tabs &&
