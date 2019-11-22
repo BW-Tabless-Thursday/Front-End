@@ -47,7 +47,7 @@ export default function ListOfTabs(props) {
 					tabs.map(tab => (
                         <div>
                             <h1>{tab.name}</h1>
-                            <TabPreview key={tab.id} tab={tab} tabs={tabs} setTabs={setTabs}/>
+                            <TabPreview key={tab.id} tab={tab} tabs={tabs} setTabs={setTabs} location={props.location}/>
                         </div>
 				))}
 			</div>
