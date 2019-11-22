@@ -13,6 +13,7 @@ import Signup from "./components/In_Out/Signup";
 // DELETE LATER - JUST TO SEE WHAT I'VE GOT
 import ListOfTabs from "./components/Tabs/ListOfTabs";
 import TabEdit from "./components/Tabs/TabEdit";
+import ListOfCategories from "./components/Categories/ListOfCategories";
 
 function App() {
   // const loggedIn = getToken();
@@ -24,6 +25,7 @@ function App() {
       {/* <Link to="/account/tabs/:id">Tabs</Link> */}
 
       <PriviteRoute path="/" component={Header}/>
+      <PriviteRoute exact path="/account" component={ListOfCategories}/>
       <PriviteRoute exact path="/account" component={ListOfTabs}/>
       <PriviteRoute exact path="/account/:id" component={TabEdit}/>
     </div>
