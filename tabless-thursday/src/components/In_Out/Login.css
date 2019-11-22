@@ -13,13 +13,29 @@ dark blue: #24305E; */
     background-color: #F76C6C;
     margin: 18.75rem auto;
     padding: 6.25rem;
-    width: 15%;
+    width: 25% !important;
 }
+
+@media (min-width: 575.98px) {
+    .Form {
+      font-size: 1.1rem;
+    }
+  }
+  @media (min-width: 767.98px) {
+    .Form {
+      font-size: 1.2rem;
+    }
+  }
+  @media (min-width: 991.98px) {
+    .Form {
+      font-size: 1.3rem;
+    }
+  }
 
 .Input{
     width: 70%;
     margin: 25px auto;
-    font-size: 200%;
+    /* font-size: 200%; */
     text-align: center;
     border: 1px solid #24305E;
     border-radius: 15px;
@@ -30,7 +46,7 @@ dark blue: #24305E; */
     width: 150px;
     height: 35px;
     margin: 25px auto;
-    font-size: 150%;
+    /* font-size: 150%; */
     text-align: center;
     border: 1px solid #24305E;
     border-radius: 15px;
@@ -48,5 +64,14 @@ dark blue: #24305E; */
 }
 
 .SecondButton:hover{
+    color: #F8E9A1;
+}
+
+.ThirdButton{
+    color: #24305E;
+    padding-top: 2rem;
+}
+
+.ThirdButton:hover{
     color: #F8E9A1;
 }

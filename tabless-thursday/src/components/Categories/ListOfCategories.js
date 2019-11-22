@@ -28,7 +28,7 @@ export default function ListOfCategories(){
             {categories &&
                 categories.map(category => (
                     <div>
-                        <h1>{category.name}</h1>
+                        <h4>{category.category}</h4>
                     </div>
             ))}
 

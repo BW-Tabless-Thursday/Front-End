@@ -63,6 +63,8 @@ export default function Login(props) {
 			<button type="submit" className="MainButton">Login</button>
 
 			<Link to="/signup" className="SecondButton">Sign up</Link>
+
+			<a href="https://tabless-thursday-webpt12.netlify.com/index.html" className="ThirdButton">Take me back to the web-site</a>
 		</form>
 	)
 }
