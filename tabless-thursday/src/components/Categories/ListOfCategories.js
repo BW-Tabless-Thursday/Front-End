@@ -30,7 +30,7 @@ export default function ListOfCategories(props){
 		  .then(response => {
             console.log(response.data.tabs)
             // setCategories(categories.filter((category) => category.id === id))
-            props.setTabs(props.tabs.filter((tab) => tab.category_id === id))
+            props.setTabs(props.tabs.filter((tab) =>  tab.category_id === id))
 		  })
 		  .catch(error => {
 			console.log(error);
