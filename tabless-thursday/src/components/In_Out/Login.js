@@ -45,9 +45,9 @@ export default function Login(props) {
 	}
 	
 	return (
-
+		<div>
 		{loggedIn && 
-			<Redirect to="/account" />}
+			 <Redirect to="/account" />}
 
 		{!loggedIn && 
 			<form onSubmit={handleSubmit} className="Form">
@@ -77,5 +77,6 @@ export default function Login(props) {
 				<a href="https://tabless-thursday-webpt12.netlify.com/index.html" className="ThirdButton">Take me back to the web-site</a>
 			</form>
 		}
+		</div>
 	)
 }

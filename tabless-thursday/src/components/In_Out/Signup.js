@@ -38,7 +38,7 @@ export default function Signup(props) {
 	}
 	
 	return (
-
+		<div>
 		{loggedIn && 
 			<Redirect to="/account" />}
 
@@ -70,5 +70,6 @@ export default function Signup(props) {
 				<a href="https://tabless-thursday-webpt12.netlify.com/index.html" className="ThirdButton">Take me back to the web-site</a>
 			</form>
 		}
+		</div>
 	)
 }
