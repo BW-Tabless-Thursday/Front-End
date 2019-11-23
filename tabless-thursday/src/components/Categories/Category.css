@@ -1,0 +1,33 @@
+/* List of colors:
+red: #F76c6c;
+yellow: #F8E9A1;
+light blue: #A8D0E6;
+blue: #374785;
+dark blue: #24305E; */
+
+.CategoryCard{
+    margin: 2rem 4rem;
+    padding: 1.5rem;
+    border: 1px solid #24305E;
+    width: 20rem;
+    text-align: center;
+    background-color: #24305E;
+    color: white;
+    text-shadow: 0 0 5px #F8E9A1;
+    /* color: rgb(148, 160, 167); */
+}
+
+.CategoryCard:hover{
+    background-color: #374785;
+    color: black;
+    text-shadow: 0 0 5px #F76c6c;
+    cursor: pointer;
+}
+
+.CategoriesList{
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}

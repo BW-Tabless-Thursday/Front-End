@@ -24,7 +24,7 @@ export default function Signup(props) {
 			.post("/auth/register", data)
 			.then(result => {
 				localStorage.setItem("token", result.data.token);
-				// change the way!!!!
+				// change the way!!!! CHECK WHY IT'S redirect you to login when you go from Mark Page to sign up
 				props.history.push("/login")
 			})
 			.catch(err => {
@@ -56,6 +56,8 @@ export default function Signup(props) {
 			<button type="submit" className="MainButton">Sign up</button>
 
 			<Link to="/login" className="SecondButton">Login</Link>
+
+			<a href="https://tabless-thursday-webpt12.netlify.com/index.html" className="ThirdButton">Take me back to the web-site</a>
 		</form>
 	)
 }
