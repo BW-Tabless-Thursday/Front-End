@@ -1,8 +1,8 @@
 import React from 'react';
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRoute } from "react-router-dom";
 import "./App.css";
 
-// import {getToken} from "./utils/api";
+import {getToken} from "./utils/api";
 import PriviteRoute from "./components/PriviteRoute";
 
 import Login from "./components/In_Out/Login";
@@ -16,20 +16,28 @@ import TabEdit from "./components/Tabs/TabEdit";
 import ListOfCategories from "./components/Categories/ListOfCategories";
 
 function App() {
-  // const loggedIn = getToken();
+  const loggedIn = getToken();
 
   return (
     <div className="WholeApp">
-      <Route exact path="/login" component={Login}/>
-      <Route exact path="/signup" component={Signup}/>
+      {!loggedIn &&
+      <div> 
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/signup" component={Signup}/>
+      </div>
+      }
       {/* <Link to="/account/tabs/:id">Tabs</Link> */}
 
-      <PriviteRoute path="/" component={Header}/>
-      {/* <PriviteRoute exact path="/account" component={ListOfCategories}/> */}
-      <PriviteRoute exact path="/categories" component={ListOfCategories}/>
-      <PriviteRoute exact path="/account" component={ListOfTabs}/>
-      <PriviteRoute exact path="/account/:id" component={TabEdit}/>
-      <PriviteRoute exact path="/logout" component={Logout}/>
+      {loggedIn &&
+      <div>
+        <PriviteRoute path="/" component={Header}/>
+        {/* <PriviteRoute exact path="/account" component={ListOfCategories}/> */}
+        <PriviteRoute exact path="/categories" component={ListOfCategories}/>
+        <PriviteRoute exact path="/account" component={ListOfTabs}/>
+        <PriviteRoute exact path="/account/:id" component={TabEdit}/>
+        <PriviteRoute exact path="/logout" component={Logout}/>
+      </div>
+}
     </div>
   );
 }

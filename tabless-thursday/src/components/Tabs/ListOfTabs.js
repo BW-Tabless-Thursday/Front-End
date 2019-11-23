@@ -28,7 +28,7 @@ export default function ListOfTabs(props) {
 		  .catch(error => {
 			console.log(error);
 		  });
-	  }, [props.location.state]);
+	  }, []);
 
 	//   function addTab(e, tab){
     //     e.preventDefault();
