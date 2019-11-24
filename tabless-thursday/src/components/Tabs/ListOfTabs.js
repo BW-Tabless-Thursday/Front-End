@@ -19,7 +19,8 @@ export default function ListOfTabs(props) {
 	const [tabs, setTabs] = useState([])
 	let tabContainer = {
 		backgroundColor : 'lightGrey',
-		padding: '1%'
+		padding: '1%',
+		marginTop: '2%',
 	}
 	useEffect(() => {
 		api()
