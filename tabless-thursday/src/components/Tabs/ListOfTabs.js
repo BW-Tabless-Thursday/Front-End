@@ -22,6 +22,11 @@ export default function ListOfTabs(props) {
 		padding: '1%',
 		marginTop: '2%',
 	}
+	let createTabContainer = {
+		marginTop: '1%',
+		marginLeft: '3%',
+		marginRight: '2%',
+	}
 	useEffect(() => {
 		api()
 		  .get(`tabs/${props.location.state}`)
@@ -62,7 +67,9 @@ export default function ListOfTabs(props) {
                         </div>
 				))}
 			</div>
+			<div style={createTabContainer}>
 			<CreateTabs location={props.location} tabs={tabs} setTabs={setTabs} />
+			</div>
 			</div>
         </div>
 	)
