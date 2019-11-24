@@ -17,6 +17,10 @@ import 'typeface-roboto';
 
 export default function ListOfTabs(props) {
 	const [tabs, setTabs] = useState([])
+	let tabContainer = {
+		backgroundColor : 'lightGrey',
+		padding: '1%'
+	}
 	useEffect(() => {
 		api()
 		  .get(`tabs/${props.location.state}`)
@@ -46,6 +50,7 @@ export default function ListOfTabs(props) {
 	return (
 		<div>
 			<ListOfCategories location={props.location} setTabs={setTabs} tabs={tabs}/>
+			<div style={tabContainer}>
             <h3>My tabs</h3>
 			<div>
 				{tabs &&
@@ -57,6 +62,7 @@ export default function ListOfTabs(props) {
 				))}
 			</div>
 			<CreateTabs location={props.location} tabs={tabs} setTabs={setTabs} />
+			</div>
         </div>
 	)
 }

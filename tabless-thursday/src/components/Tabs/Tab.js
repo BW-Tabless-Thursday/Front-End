@@ -83,7 +83,6 @@ const useStyles = makeStyles(theme => ({
     },
     imageControl: {
       height: '120px',
-      //width: '27%',
       border: '1px solid lightGrey',
       justifyContent: 'flex-end',
     },
