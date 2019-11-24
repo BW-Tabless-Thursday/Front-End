@@ -121,7 +121,7 @@ const useStyles = makeStyles(theme => ({
         
     const handleDelete = (event) => {
         event.preventDefault()
-
+        //insert the MODAL here?
         if (window.confirm(`Are you sure you want to delete ${props.tab.name} tab?`)) {
             
             api()
