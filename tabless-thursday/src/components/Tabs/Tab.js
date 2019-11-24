@@ -85,6 +85,8 @@ const useStyles = makeStyles(theme => ({
       height: '120px',
       border: '1px solid lightGrey',
       justifyContent: 'flex-end',
+      marginLeft: '3px',
+      marginRight: '3px',
     },
     container: {
       display: 'flex',
