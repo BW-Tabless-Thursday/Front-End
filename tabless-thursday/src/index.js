@@ -3,19 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter as Router} from "react-router-dom";
-// import { createStore, applyMiddleware } from "redux";
-// import { Provider } from "react-redux";
-// import thunk from "redux-thunk";
-// import reducer from "./reducers/tab_reducer";
+import { createStore, applyMiddleware, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import {reducer as tabReducer} from "./reducers/tab_reducer";
+import {reducer as userReducer} from "./reducers/login_reducer";
 
-// const store = createStore(reducer, applyMiddleware(thunk));
+const rootReducer = combineReducers({
+    tab: tabReducer,
+    user: userReducer
+});
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
-    // <Provider store={store}>
+    <Provider store={store}>
         <Router>
             <App />
         </Router>,
-    // </Provider>, 
+    </Provider>, 
     document.getElementById('root'));
-
-    // Виділене на випадок, якщо буду використовувати Redux

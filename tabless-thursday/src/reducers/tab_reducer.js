@@ -9,7 +9,7 @@ import {
     id: localStorage.getItem("user") || null
   };
 
-  export default function reducer(state = initialState, action) {
+  export  function reducer(state = initialState, action) {
 
     switch (action.type) {
       case ADD_NEW_TAB:
