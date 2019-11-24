@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import api from "../../utils/api";
+import { connect } from "react-redux";
+
+import {register} from "../../actions/login_action";
+
+// import api from "../../utils/api";
 import "./Login.css";
 
 import {getToken} from "../../utils/api";
 
-export default function Signup(props) {
+function Signup(props) {
 
 	const loggedIn = getToken();
 
-	const [error, setError] = useState()
+	const {id} = props;
+	useEffect(() => {
+		if(id){
+		props.history.push("/account")
+		}
+	},[id])
+
+	// const [error, setError] = useState()
 	const [data, setData] = useState({
 		username: "",
 		password: "",
@@ -23,18 +34,8 @@ export default function Signup(props) {
 	}
 
 	const handleSubmit = (event) => {
-		event.preventDefault()
-
-		api()
-			.post("/auth/register", data)
-			.then(result => {
-				localStorage.setItem("token", result.data.token);
-				// change the way!!!! CHECK WHY IT'S redirect you to login when you go from Mark Page to sign up
-				props.history.push("/login")
-			})
-			.catch(err => {
-				setError(err.response.data.message)
-			})
+		event.preventDefault();
+		props.register(data)
 	}
 	
 	return (
@@ -44,7 +45,7 @@ export default function Signup(props) {
 
 		{!loggedIn && 
 			<form onSubmit={handleSubmit} className="Form">
-				{error && <div>{error}</div>}
+				{/* {error && <div>{error}</div>} */}
 
 				<input 
 					type="text" 
@@ -73,3 +74,15 @@ export default function Signup(props) {
 		</div>
 	)
 }
+
+function mapStateToProps(state) {
+	return {
+	  ...state
+	}
+}
+  
+const mapDispatchToProps = {
+	register
+}
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

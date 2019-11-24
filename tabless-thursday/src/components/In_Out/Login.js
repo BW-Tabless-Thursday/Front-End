@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 import {login} from "../../actions/login_action";
 
-// import api from "../../utils/api";
 import "./Login.css";
 
 import {getToken} from "../../utils/api";
@@ -80,10 +79,10 @@ function mapStateToProps(state) {
 	return {
 	  ...state
 	}
-  }
+}
   
-  const mapDispatchToProps = {
-	  login
-  }
+const mapDispatchToProps = {
+	login
+}
   
-  export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
