@@ -65,7 +65,9 @@ import TabEdit from "./TabEdit";
 
 const useStyles = makeStyles(theme => ({
     root: {
-      width: '100%',
+      width: '90%',
+      marginLeft: '3%',
+      marginRight: '3%',
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
@@ -76,6 +78,29 @@ const useStyles = makeStyles(theme => ({
       fontSize: theme.typography.pxToRem(15),
       color: theme.palette.text.secondary,
     },
+    imageDiv: {
+      display: 'flex',
+    },
+    imageControl: {
+      height: '120px',
+      border: '1px solid lightGrey',
+      justifyContent: 'flex-end',
+    },
+    container: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    right: {
+      display: 'flex',
+
+    },
+    left: {
+
+    },
+    buttonContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+    }
   }));
   
   export default function TabPreview(props) {
@@ -119,13 +144,19 @@ const useStyles = makeStyles(theme => ({
               id="panel1bh-header"
             >
               <Typography className={classes.heading}>{props.tab.name}</Typography>
-              <Typography className={classes.secondaryHeading}>{props.tab.url}</Typography>
+              <Typography className={classes.secondaryHeading}><a href={props.tab.url} target="_blank" rel="noopener noreferrer">{props.tab.url}</a></Typography>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Typography>Notes: {props.tab.notes}<br />Categories: {props.tab.category}</Typography>
-              <div>
-                <img src ={`https://image.thum.io/get/${props.tab.url}/`} />
+            <ExpansionPanelDetails className={classes.container}>
+              <div className={classes.left}>
+              <Typography><strong>Notes:</strong> {props.tab.notes}<br /><strong>Categories:</strong> {props.tab.category}</Typography>
               </div>
+
+              <div className={classes.right}>
+              <div className={classes.imageDiv}>
+                <a href={props.tab.url} target="_blank" rel="noopener noreferrer">
+                <img src ={`https://image.thum.io/get/${props.tab.url}/`} alt={`${props.tab.name}`} className={classes.imageControl}/></a>
+              </div>
+              <div className={classes.buttonContainer}>
               <button onClick={(e) => handleDelete(e)}>
                 Delete
               </button>
@@ -133,10 +164,10 @@ const useStyles = makeStyles(theme => ({
               <button onClick={() => editTab()}>
                 Edit
               </button>
-
               {editing &&
                 <TabEdit  tab={props.tab} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>}
-
+              </div>
+                </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </div>

@@ -6,10 +6,10 @@ blue: #374785;
 dark blue: #24305E; */
 
 .CategoryCard{
-    margin: 2rem 4rem;
-    padding: 1.5rem;
+    /* margin: 2rem 4rem;
+    padding: 1.5rem; */
     border: 1px solid #24305E;
-    width: 20rem;
+    width: 10rem;
     text-align: center;
     background-color: #24305E;
     color: white;
