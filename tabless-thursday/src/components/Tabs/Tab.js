@@ -80,8 +80,6 @@ const useStyles = makeStyles(theme => ({
     },
     imageDiv: {
       display: 'flex',
-      border: '1px solid red',
-      //width: '27%',
     },
     imageControl: {
       height: '120px',
