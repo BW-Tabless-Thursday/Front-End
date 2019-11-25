@@ -12,7 +12,8 @@ import ListOfCategories from "../Categories/ListOfCategories";
 import 'typeface-roboto';
 
 function ListOfTabs(props) {
-	const {tabs, showTabs} = props;
+	console.log(props);
+	const {tab, showTabs} = props;
 	// const [tabs, setTabs] = useState([])
 	let tabContainer = {
 		backgroundColor : 'lightGrey',
@@ -24,39 +25,35 @@ function ListOfTabs(props) {
 		marginLeft: '3%',
 		marginRight: '2%',
 	}
-	// useEffect(() => {
-	// 	const id = localStorage.getItem("user");
-	// 	console.log(id)
-	// 	api()
-	// 	  .get(`tabs/${id}`)
-	// 	  .then(response => {
-    //         console.log(response.data.tabs);
-	// 		setTabs(response.data.tabs);
-	// 	  })
-	// 	  .catch(error => {
-	// 		console.log(error);
-	// 	  });
-	//   }, []);
 
 	useEffect(() => {
 		showTabs()
-		console.log(showTabs())
-	}, [])
-	  
+		// console.log(showTabs())
+	}, [showTabs])
+
+	// const handleDelete = (event) => {
+	// 	event.preventDefault();
+	// 	const TabName = props.tab.tabs.name;
+	// 	const tabID = props.tab.tabs.id;
+	// 	if (window.confirm(`Are you sure you want to delete ${TabName} tab?`)) {
+	// 	console.log("Your tab was deleted")
+	// 	  deleteTab(tabID)
+	// 	}
+	// }
 
 	return (
 		<div>
 			{/* <ListOfCategories location={props.location} setTabs={setTabs} tabs={tabs}/> */}
-			{/* <ListOfCategories location={props.location}  tabs={tabs}/> */}
+			<ListOfCategories location={props.location}  tabs={tab.tabs}/>
 			<div style={tabContainer}>
             <h3>My tabs</h3>
 			<div>
-				{tabs &&
-					tabs.map(tab => (
+				{tab.tabs &&
+					tab.tabs.map(tab => (
                         <div>
                             {/* <h1>{tab.name}</h1> */}
                             {/* <TabPreview key={tab.id} tab={tab} tabs={tabs} setTabs={setTabs} location={props.location}/> */}
-							<TabPreview key={tab.id} tab={tab} tabs={tabs} location={props.location}/>
+							<TabPreview key={tab.id} tab={tab} history={props.history}/>
                         </div>
 				))}
 			</div>
@@ -78,4 +75,4 @@ const mapDispatchToProps = {
 	showTabs
 }
   
-export default connect(mapStateToProps, mapDispatchToProps)(ListOfTabs);
+export default connect(mapStateToProps, mapDispatchToProps)(ListOfTabs)
