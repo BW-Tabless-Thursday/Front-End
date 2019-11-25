@@ -1,11 +1,19 @@
 import api from "../utils/api";
 
-export const ADD_NEW_TAB = "ADD_NEW_TAB";
+export const TABS_START = "TABS_START";
+export const TABS_SUCCESS = "TABS_SUCCESS";
+export const TABS_ERROR = "TABS_ERROR";
 
-export const addTab = (newTab, props) => dispatch => {
-  dispatch ({type: ADD_NEW_TAB, payload: newTab})
+export const showTabs = () => dispatch => {
+  dispatch({ type: TABS_START});
+  const id = localStorage.getItem("user")
   api()
-    .post(`/tabs/${props.location.state}`, newTab)
-    .then(response => console.log(response))
-    .catch(error => console.log(error))
+    .get(`tabs/${id}`)
+    .then(response => {
+      dispatch({type: TABS_SUCCESS, payload: response.data.tabs})
+      console.log(response.data)
+    })
+    .catch(error => {
+      dispatch({type: TABS_ERROR, payload: error});
+    })
 }

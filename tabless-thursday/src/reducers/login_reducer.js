@@ -15,48 +15,48 @@ export function reducer( state = initialState, action){
         case REGISTER_START:
             return {
                 ...state,
-                isLoading: true
+                isFetching: true
             }
 
         case REGISTER_SUCCESS:
             return {
-                    ...state,
-                isLoading: false,
+                ...state,
+                isFetching: false,
                 id: action.payload
-        }
+            }
 
         case REGISTER_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isFetching: false,
                 error: action.payload
             }
 
         case LOGIN_START: 
             return {
                 ...state,
-                isLoading: true
-        }
+                isFetching: true
+            }
 
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isFetching: false,
                 id: action.payload
-        }
+            }
 
         case LOGIN_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isFetching: false,
                 error: action.payload
-        }
+            }
 
         case LOGOUT:
             return {
                 ...state,
                 id: null
-        }
+            }
 
         default:
             return state;

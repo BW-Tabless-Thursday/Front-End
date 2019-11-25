@@ -25,13 +25,18 @@ export const register = (user_info) => dispatch => {
         })
 }
 
-export const login = (user_info) => dispatch => {
+export const login = ( props, user_info) => dispatch => {
     dispatch({ type: LOGIN_START })
     api()
         .post("/auth/login", user_info)
         .then(response => {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("user", response.data.id);
+            console.log(response.data)
+            props.history.push({
+                pathname: "/account",
+                state: response.data.id
+            })
             dispatch({ type: LOGIN_SUCCESS, payload: response.data.id})
         })
         .catch(error => {

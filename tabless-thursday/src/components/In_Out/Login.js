@@ -35,7 +35,8 @@ function Login(props) {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		props.login(data)
+		props.login(props.history, data)
+		console.log(props.history)
 	}
 	
 	return (

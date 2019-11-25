@@ -1,57 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import api from "../../utils/api";
-
-// import TabEdit from "./TabEdit";
-
-// export default function TabPreview(props){
-    
-//     const [editing, setEditing] = useState(false);
-
-//     const editTab = () => {
-//         setEditing(true)
-//     }
-
-//     const handleDelete = (event) => {
-// 		event.preventDefault()
-
-// 		if (window.confirm(`Are you sure you want to delete ${props.tab.name} tab?`)) {
-			
-// 			api()
-// 				.delete(`/tabs/${props.tab.user_id}/${props.tab.id}`)
-// 				.then((result) => {
-//                     props.setTabs(result.data.tabs)
-// 					console.log("Tab was deleted")
-// 				})
-// 				.catch((error) => {
-// 					console.log(error)
-// 					props.setTabs([...props.tabs, props.tab])
-// 				})
-// 		}
-// 	}
-
-//     return(
-//         <div>
-//             <h3>{props.tab.name}</h3>
-//             <p>{props.tab.url}</p>
-//             <p>{props.tab.notes}</p>
-//             <p>{props.tab.category}</p>
-
-//             <button onClick={(e) => handleDelete(e)}>
-// 				Delete
-// 			</button>
-
-//             <button onClick={() => editTab()}>
-// 				Edit
-// 			</button>
-
-//             {editing &&
-//                 <TabEdit  tab={props.tab} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>}
-//         </div>
-//     )
-// }
-
-
-//**********expansion panels************* */
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -61,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import api from "../../utils/api";
 import TabEdit from "./TabEdit";
+
+import { connect } from "react-redux";
+import {showTabs} from "../../actions/tab_action";
 
 
 const useStyles = makeStyles(theme => ({
@@ -103,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
   
-  export default function TabPreview(props) {
+function TabPreview(props) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
 
@@ -117,23 +66,23 @@ const useStyles = makeStyles(theme => ({
         setEditing(true)
     }
         
-    const handleDelete = (event) => {
-        event.preventDefault()
+    // const handleDelete = (event) => {
+    //     event.preventDefault()
 
-        if (window.confirm(`Are you sure you want to delete ${props.tab.name} tab?`)) {
+    //     if (window.confirm(`Are you sure you want to delete ${props.tab.name} tab?`)) {
             
-            api()
-                .delete(`/tabs/${props.tab.user_id}/${props.tab.id}`)
-                .then((result) => {
-                    props.setTabs(result.data.tabs)
-                    console.log("Tab was deleted")
-                })
-                .catch((error) => {
-                    console.log(error)
-                    props.setTabs([...props.tabs, props.tab])
-                })
-        }
-    }
+    //         api()
+    //             .delete(`/tabs/${props.tab.user_id}/${props.tab.id}`)
+    //             .then((result) => {
+    //                 props.setTabs(result.data.tabs)
+    //                 console.log("Tab was deleted")
+    //             })
+    //             .catch((error) => {
+    //                 console.log(error)
+    //                 props.setTabs([...props.tabs, props.tab])
+    //             })
+    //     }
+    // }
 
     return (
         <div className={classes.root}>
@@ -156,7 +105,7 @@ const useStyles = makeStyles(theme => ({
                 <a href={props.tab.url} target="_blank" rel="noopener noreferrer">
                 <img src ={`https://image.thum.io/get/${props.tab.url}/`} alt={`${props.tab.name}`} className={classes.imageControl}/></a>
               </div>
-              <div className={classes.buttonContainer}>
+              {/* <div className={classes.buttonContainer}>
               <button onClick={(e) => handleDelete(e)}>
                 Delete
               </button>
@@ -166,10 +115,18 @@ const useStyles = makeStyles(theme => ({
               </button>
               {editing &&
                 <TabEdit  tab={props.tab} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>}
-              </div>
+              </div> */}
                 </div>
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </div>
           )
 }
+
+function mapStateToProps(state) {
+	return {
+	  ...state
+	}
+}
+  
+export default connect(mapStateToProps)(TabPreview);
