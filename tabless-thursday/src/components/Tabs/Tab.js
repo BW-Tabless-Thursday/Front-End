@@ -8,9 +8,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import api from "../../utils/api";
 import TabEdit from "./TabEdit";
 
-import { connect } from "react-redux";
-
-import {deleteTab} from "../../actions/tab_action";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -34,6 +31,8 @@ const useStyles = makeStyles(theme => ({
       height: '120px',
       border: '1px solid lightGrey',
       justifyContent: 'flex-end',
+      marginLeft: '3px',
+      marginRight: '3px',
     },
     container: {
       display: 'flex',
@@ -52,93 +51,73 @@ const useStyles = makeStyles(theme => ({
     }
   }));
   
-export default function TabPreview(props) {
-  console.log(props)
+  export default function TabPreview(props) {
+    const classes = useStyles();
+    const [expanded, setExpanded] = React.useState(false);
 
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const [editing, setEditing] = useState(false);
-
-  const handleChange = panel => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
-
-  const editTab = () => {
-      setEditing(true)
-  }
-
+    const [editing, setEditing] = useState(false);
   
-      
-  const handleDelete = (event) => {
-      event.preventDefault();
+    const handleChange = panel => (event, isExpanded) => {
+      setExpanded(isExpanded ? panel : false);
+    };
 
-      if (window.confirm(`Are you sure you want to delete ${props.tab.name} tab?`)) {
-          
-          api()
-              .delete(`/tabs/${props.tab.user_id}/${props.tab.id}`)
-              .then((result) => {
-                  // props.tab.tabs(result.data.tabs)
-                  props.history.push("/account")
-                  console.log("Tab was deleted")
-              })
-              .catch((error) => {
-                  console.log(error)
-                  // props.tab([...props.tab.tabs, props.tab])
+    const editTab = () => {
+        setEditing(true)
+    }
+        
+    const handleDelete = (event) => {
+        event.preventDefault()
+        //insert the MODAL here?
+        if (window.confirm(`Are you sure you want to delete ${props.tab.name} tab?`)) {
+            
+            api()
+                .delete(`/tabs/${props.tab.user_id}/${props.tab.id}`)
+                .then((result) => {
+                    props.setTabs(result.data.tabs)
+                    console.log("Tab was deleted")
+                })
+                .catch((error) => {
+                    console.log(error)
+                    props.setTabs([...props.tabs, props.tab])
+                })
+        }
+    }
 
-              })
-      }
-  }
-
-  return (
-      <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Typography className={classes.heading}>{props.tab.name}</Typography>
-            <Typography className={classes.secondaryHeading}><a href={props.tab.url} target="_blank" rel="noopener noreferrer">{props.tab.url}</a></Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.container}>
-            <div className={classes.left}>
-            <Typography><strong>Notes:</strong> {props.tab.notes}<br />
-            <strong>Categories:</strong> {props.tab.category}
-            </Typography>
-            </div>
-
-            <div className={classes.right}>
-            <div className={classes.imageDiv}>
-              <a href={props.tab.url} target="_blank" rel="noopener noreferrer">
-              <img src ={`https://image.thum.io/get/${props.tab.url}/`} alt={`${props.tab.name}`} className={classes.imageControl}/></a>
-            </div>
-            <div className={classes.buttonContainer}>
-            <button onClick={(e) => handleDelete(e)}>
-              Delete
-            </button>
-
-            {/* <button onClick={() => editTab()}>
-              Edit
-            </button>
-            {editing &&
-              <TabEdit  tab={props.tab} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>} */}
-            </div>
+    return (
+        <div className={classes.root}>
+          <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Typography className={classes.heading}>{props.tab.name}</Typography>
+              <Typography className={classes.secondaryHeading}><a href={props.tab.url} target="_blank" rel="noopener noreferrer">{props.tab.url}</a></Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails className={classes.container}>
+              <div className={classes.left}>
+              <Typography><strong>Notes:</strong> {props.tab.notes}<br /><strong>Categories:</strong> {props.tab.category}</Typography>
               </div>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      </div>
-        )
+
+              <div className={classes.right}>
+              <div className={classes.imageDiv}>
+                <a href={props.tab.url} target="_blank" rel="noopener noreferrer">
+                <img src ={`https://image.thum.io/get/${props.tab.url}/`} alt={`${props.tab.name}`} className={classes.imageControl}/></a>
+              </div>
+              <div className={classes.buttonContainer}>
+              <button onClick={(e) => handleDelete(e)}>
+                Delete
+              </button>
+
+              <button onClick={() => editTab()}>
+                Edit
+              </button>
+              {editing &&
+                <TabEdit  tab={props.tab} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>}
+              </div>
+                </div>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </div>
+          )
 }
-
-// function mapStateToProps(state) {
-//   return {
-//     ...state
-//   }
-// }
-
-// const mapDispatchToProps = {
-//   deleteTab
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(TabPreview)

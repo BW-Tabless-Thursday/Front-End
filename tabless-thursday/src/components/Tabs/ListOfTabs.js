@@ -1,8 +1,12 @@
+//this is the main component where we will display the links created
+//this will be a mapped array of objects like we normally work with.
+//ListOfLinks will be set by Category selected
+//You select a Category and it generates the ListOfLinks
+//Show your list of individual links in an EXPANSION PANNEL
+//please reference the material ui for this expansion pannel function 
+
 import React, { useState, useEffect } from "react";
 import api from "../../utils/api";
-import { connect } from "react-redux";
-
-import {showTabs} from "../../actions/tab_action";
 
 import TabPreview from "./Tab";
 import CreateTabs from "./CreateTabs";
@@ -11,10 +15,8 @@ import ListOfCategories from "../Categories/ListOfCategories";
 
 import 'typeface-roboto';
 
-function ListOfTabs(props) {
-	console.log(props);
-	const {tab, showTabs} = props;
-	// const [tabs, setTabs] = useState([])
+export default function ListOfTabs(props) {
+	const [tabs, setTabs] = useState([])
 	let tabContainer = {
 		backgroundColor : 'lightGrey',
 		padding: '1%',
@@ -25,54 +27,50 @@ function ListOfTabs(props) {
 		marginLeft: '3%',
 		marginRight: '2%',
 	}
-
 	useEffect(() => {
-		showTabs()
-		// console.log(showTabs())
-	}, [showTabs])
+		api()
+		  .get(`tabs/${props.location.state}`)
+		  .then(response => {
+              console.log(response.data.tabs)
+             
+			setTabs(response.data.tabs);
+		  })
+		  .catch(error => {
+			console.log(error);
+		  });
+	  }, []);
 
-	// const handleDelete = (event) => {
-	// 	event.preventDefault();
-	// 	const TabName = props.tab.tabs.name;
-	// 	const tabID = props.tab.tabs.id;
-	// 	if (window.confirm(`Are you sure you want to delete ${TabName} tab?`)) {
-	// 	console.log("Your tab was deleted")
-	// 	  deleteTab(tabID)
-	// 	}
-	// }
+	//   function addTab(e, tab){
+    //     e.preventDefault();
+
+    //     api()
+	// 		.post(`/tabs/${props.location.state}`, tab)
+	// 		.then(response => {
+	// 			console.log(response.data.tabs);
+	// 		})
+	// 		.catch((error) => {
+	// 			console.log(error);
+	// 		});
+    // }
 
 	return (
 		<div>
-			{/* <ListOfCategories location={props.location} setTabs={setTabs} tabs={tabs}/> */}
-			<ListOfCategories location={props.location}  tabs={tab.tabs}/>
+			<ListOfCategories location={props.location} setTabs={setTabs} tabs={tabs}/>
 			<div style={tabContainer}>
             <h3>My tabs</h3>
 			<div>
-				{tab.tabs &&
-					tab.tabs.map(tab => (
+				{tabs &&
+					tabs.map(tab => (
                         <div>
                             {/* <h1>{tab.name}</h1> */}
-                            {/* <TabPreview key={tab.id} tab={tab} tabs={tabs} setTabs={setTabs} location={props.location}/> */}
-							<TabPreview key={tab.id} tab={tab} history={props.history}/>
+                            <TabPreview key={tab.id} tab={tab} tabs={tabs} setTabs={setTabs} location={props.location}/>
                         </div>
 				))}
 			</div>
 			<div style={createTabContainer}>
-			{/* <CreateTabs location={props.location} tabs={tabs} setTabs={setTabs} /> */}
+			<CreateTabs location={props.location} tabs={tabs} setTabs={setTabs} />
 			</div>
 			</div>
         </div>
 	)
 }
-
-function mapStateToProps(state) {
-	return {
-	  ...state
-	}
-}
-  
-const mapDispatchToProps = {
-	showTabs
-}
-  
-export default connect(mapStateToProps, mapDispatchToProps)(ListOfTabs)

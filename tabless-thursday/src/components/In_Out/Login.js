@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
-import {login} from "../../actions/login_action";
-
+import api from "../../utils/api";
 import "./Login.css";
 
 import {getToken} from "../../utils/api";
 
 
-function Login(props) {
+export default function Login(props) {
 
 	const loggedIn = getToken();
 
-	const {id} = props;
-	useEffect(() => {
-		if(id){
-		props.history.push("/account")
-		}
-	},[id])
-
-	// const [error, setError] = useState()
+	const [error, setError] = useState()
 	const [data, setData] = useState({
 		username: "",
 		password: "",
@@ -34,9 +26,22 @@ function Login(props) {
 	}
 
 	const handleSubmit = (event) => {
-		event.preventDefault();
-		props.login(props.history, data)
-		console.log(props.history)
+		event.preventDefault()
+
+		api()
+			.post("/auth/login", data)
+			.then(result => {
+				localStorage.setItem("token", result.data.token);
+				// change the way!!!!
+				console.log(result.data)
+				props.history.push({
+					pathname: "/account",
+					state: result.data.id
+				})
+			})
+			.catch(err => {
+				setError(err.response.data.message)
+			})
 	}
 	
 	return (
@@ -46,7 +51,7 @@ function Login(props) {
 
 		{!loggedIn && 
 			<form onSubmit={handleSubmit} className="Form">
-				{/* {error && <div>{error}</div>} */}
+				{error && <div>{error}</div>}
 
 				<input 
 					type="text" 
@@ -75,15 +80,3 @@ function Login(props) {
 		</div>
 	)
 }
-
-function mapStateToProps(state) {
-	return {
-	  ...state
-	}
-}
-  
-const mapDispatchToProps = {
-	login
-}
-  
-export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,22 +1,7 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import {logout} from "../../actions/login_action"; 
+import React from "react"
+import { Redirect } from "react-router-dom"
 
-function Logout() {
-	logout()
-    // history.push('/');
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+export default function Logout() {
+	localStorage.removeItem("token")
 	return <Redirect to="/login" />
 }
-
-const mapStateToProps = (state) => {
-	return {...state}
-}
-
-const mapDispatchToProps = {
-	logout
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Logout);
