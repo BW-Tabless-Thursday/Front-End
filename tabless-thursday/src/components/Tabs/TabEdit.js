@@ -2,10 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import api from "../../utils/api";
 
 import { TabContext } from "../../contexts/TabContext";
+import { CategoryContext } from "../../contexts/CategoryContext";
 
 export default function TabEdit(props) {
 
 	const {setTabs, current_user} = useContext(TabContext);
+	// const { categories, setCategories } = useContext(CategoryContext);
+	// console.log(categories)
 
 	// const [categories, setCategories] = useState([]);
 	const [tab, setTab] = useState({
@@ -15,23 +18,9 @@ export default function TabEdit(props) {
 		"notes" : "",
 		"user_id": current_user,
 		// "category_id": categories.id,
-        // "category" : categories.category,	
+        // "category" : "",	
     })
 
-    
-    
-    // useEffect(() => {
-    //     api()
-    //         .get("/tabs/categories")
-    //         .then((result) => {
-	// 			console.log(result.data)
-	// 			setCategories(result.data)
-				
-    //         })
-    //         .catch((error) => {
-    //             console.log(error)
-    //         })
-	// }, [])
 	
 
 	const handleChange = (event) => {

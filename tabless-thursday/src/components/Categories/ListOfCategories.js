@@ -10,9 +10,23 @@ import "./Category.css";
 
 export default function ListOfCategories(){
 
-    const {categories, setCategories} = useContext(CategoryContext);
-    const { tabs, setTabs, current_user } = useContext(TabContext);
+    const [categories, setCategories] = useState([]);
 
+
+    useEffect(() => {
+        api()
+            .get("/tabs/categories")
+            .then((result) => {
+				console.log(result.data)
+				setCategories(result.data)
+				
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [])
+
+    console.log(categories);
     
     function ShowCategories(event, id){
     // //     event.preventDefault();
@@ -31,6 +45,7 @@ export default function ListOfCategories(){
     }
 
     return(
+        <CategoryContext.Provider value={{ categories, setCategories }} >
         <div className="CategoriesList">
 
             {categories &&
@@ -41,5 +56,6 @@ export default function ListOfCategories(){
             ))}
 
         </div>
+        </CategoryContext.Provider>
     )
 }

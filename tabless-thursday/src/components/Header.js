@@ -18,9 +18,9 @@ export default function Header(){
                                 <Link className="nav-link" to="/account">Home</Link>
                             </li>
                             
-                            {/* <li className="nav-item font-weight-bold">
+                            <li className="nav-item font-weight-bold">
                                 <Link className="nav-link" to="/categories">Categories</Link>
-                            </li> */}
+                            </li>
                             
                             <li className="nav-item font-weight-bold">
                                 <a className="nav-link" href="https://tabless-thursday-webpt12.netlify.com/index.html">Main Page</a>
