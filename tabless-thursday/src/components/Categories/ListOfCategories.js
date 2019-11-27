@@ -1,40 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import api from "../../utils/api";
+
+import { CategoryContext } from "../../contexts/CategoryContext";
+import { TabContext } from "../../contexts/TabContext";
 
 import CategoryCard from "./Category";
 
 import "./Category.css";
 
-export default function ListOfCategories(props){
+export default function ListOfCategories(){
 
-    const [categories, setCategories] = useState([]);
+    const {categories, setCategories} = useContext(CategoryContext);
+    const { tabs, setTabs, current_user } = useContext(TabContext);
 
-    useEffect(() => {
-        api()
-            .get("/tabs/categories")
-            .then((result) => {
-				console.log(result.data)
-				setCategories(result.data)
-				
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }, [])
     
     function ShowCategories(event, id){
-        event.preventDefault();
+    // //     event.preventDefault();
 
-        api()
-		  .get(`tabs/${props.location.state}`)
-		  .then(response => {
-            console.log(response.data.tabs)
-            // setCategories(categories.filter((category) => category.id === id))
-            props.setTabs(props.tabs.filter((tab) =>  tab.category_id === id))
-		  })
-		  .catch(error => {
-			console.log(error);
-		  });
+    // //     api()
+	// // 	  .get(`tabs/${current_user}`)
+	// // 	  .then(response => {
+    // //         console.log(response.data.tabs)
+    //     //     // setCategories(categories.filter((category) => category.id === id))
+    //         setTabs(tabs.filter((tab) =>  tab.category_id === id))
+	// // 	  })
+	// // 	  .catch(error => {
+	// // 		console.log(error);
+	// // 	  });
 
     }
 
