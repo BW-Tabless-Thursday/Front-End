@@ -8,8 +8,7 @@ export default function api() {
 	return axios.create({
 		baseURL: "https://tabless-be.herokuapp.com/api",
 		headers: {
-			Authorization: getToken(),
-			"Content-Type": "application/json"
+			Authorization: getToken()
 		},
 	})
 }

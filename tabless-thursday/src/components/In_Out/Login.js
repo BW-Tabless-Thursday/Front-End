@@ -32,6 +32,7 @@ export default function Login(props) {
 			.post("/auth/login", data)
 			.then(result => {
 				localStorage.setItem("token", result.data.token);
+				localStorage.setItem("id", result.data.id)
 				// change the way!!!!
 				console.log(result.data)
 				props.history.push({
