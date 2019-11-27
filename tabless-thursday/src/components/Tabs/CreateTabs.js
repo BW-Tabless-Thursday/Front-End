@@ -6,10 +6,14 @@
 //Category : where you can select or input a category for organization
 //submit button
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from "../../utils/api";
 
-function CreateTabs(props) {
+import { TabContext } from "../../contexts/TabContext";
+
+function CreateTabs() {
+
+    const {tabs, setTabs, current_user} = useContext(TabContext);
 
     const [tab, setTab] = useState({
 		id : "",
@@ -21,19 +25,19 @@ function CreateTabs(props) {
         category : "",	
     })
 
-    const [categories, setCategories] = useState([]);
+    // const [categories, setCategories] = useState([]);
 
-    useEffect(() => {
-        api()
-            .get("/tabs/categories")
-            .then((result) => {
-                setCategories(result.data)
-                console.log(result.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }, [])
+    // useEffect(() => {
+    //     api()
+    //         .get("/tabs/categories")
+    //         .then((result) => {
+    //             setCategories(result.data)
+    //             console.log(result.data)
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //         })
+    // }, [])
 
     function handleSubmit(e){
         e.preventDefault();
@@ -44,15 +48,15 @@ function CreateTabs(props) {
             "name": tab.name,
             "notes": tab.notes,
             // "user_id": props.location.state,
-            "category_id": categories.id
+            // "category_id": categories.id
             // "category": tab.category
         }
 
         api()
-            .post(`/tabs/${props.location.state}`, addNewTab)
+            .post(`/tabs/${current_user}`, addNewTab)
             .then(response => {
                 console.log(response.data.tabs);
-                props.setTabs([...props.tabs, addNewTab])
+                setTabs([...tabs, addNewTab])
                 setTab({
                     id : "",
                     url : "",
@@ -102,7 +106,7 @@ function CreateTabs(props) {
                     onChange={handleChange}
                 />
 
-                <select 
+                {/* <select 
                     name="category" 
                     value={tab.category} 
                     onChange={handleChange}>
@@ -110,7 +114,7 @@ function CreateTabs(props) {
                             categories.map(category =>
                                 <option key={category.id} value={category.category} >{category.category}</option>
                         )}
-                </select>
+                </select> */}
 
                 <button type="submit">Add new Tab</button>
 		    </form>

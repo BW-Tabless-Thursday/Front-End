@@ -15,7 +15,7 @@ import { TabContext } from "../../contexts/TabContext";
 
 import 'typeface-roboto';
 
-export default function ListOfTabs(props) {
+export default function ListOfTabs() {
 
 	const {tabs} = useContext(TabContext);
 	
@@ -73,7 +73,7 @@ export default function ListOfTabs(props) {
 				))}
 			</div>
 			<div style={createTabContainer}>
-			{/* <CreateTabs location={props.location} tabs={tabs} setTabs={setTabs} /> */}
+			<CreateTabs />
 			</div>
 			</div>
         </div>

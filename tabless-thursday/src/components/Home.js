@@ -6,7 +6,7 @@ import { TabContext } from "../contexts/TabContext";
 import ListOfCategories from "./Categories/ListOfCategories";
 import ListOfTabs from "./Tabs/ListOfTabs";
 
-export default function Home(props){
+export default function Home(){
 
     const [tabs, setTabs] = useState([]);
 
