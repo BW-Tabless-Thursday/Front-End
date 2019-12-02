@@ -17,13 +17,12 @@ export default function Home(){
 		api()
 		  .get(`tabs/${current_user}`)
 		  .then(response => {
-              console.log(response.data.tabs)
-              console.log(current_user)
-             
-			setTabs(response.data.tabs);
+        console.log(response.data.tabs);
+        console.log(current_user);      
+			  setTabs(response.data.tabs);
 		  })
 		  .catch(error => {
-			console.log(error);
+			  console.log(error);
 		  });
     }, [current_user]);
 

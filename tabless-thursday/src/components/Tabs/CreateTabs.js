@@ -1,12 +1,4 @@
-//Form Element for creating the tab that will be saved.
-//This form will show up in a modal
-//Tab Title will serve as visual -- User Typed
-//Tab Link will be the copy and pasted link
-//Tab Notes will be reminder text user input
-//Category : where you can select or input a category for organization
-//submit button
-
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import api from "../../utils/api";
 
 import { TabContext } from "../../contexts/TabContext";
@@ -25,19 +17,7 @@ function CreateTabs() {
         category : "",	
     })
 
-    // const [categories, setCategories] = useState([]);
-
-    // useEffect(() => {
-    //     api()
-    //         .get("/tabs/categories")
-    //         .then((result) => {
-    //             setCategories(result.data)
-    //             console.log(result.data)
-    //         })
-    //         .catch((error) => {
-    //             console.log(error)
-    //         })
-    // }, [])
+    
 
     function handleSubmit(e){
         e.preventDefault();
@@ -56,7 +36,7 @@ function CreateTabs() {
             .post(`/tabs/${current_user}`, addNewTab)
             .then(response => {
                 console.log(response.data.tabs);
-                setTabs([...tabs, addNewTab])
+                setTabs([...tabs, addNewTab]);
                 setTab({
                     id : "",
                     url : "",
@@ -91,18 +71,18 @@ function CreateTabs() {
 				/>
 
                 <input 
-                    type="text"
-                    placeholder="Notes"
-                    name="notes"
-                    value={tab.notes}
-                    onChange={handleChange}
-                />
-
-                <input 
                     type="url"
                     placeholder="URL"
                     name="url"
                     value={tab.url}
+                    onChange={handleChange}
+                />
+
+                <input 
+                    type="text"
+                    placeholder="Notes"
+                    name="notes"
+                    value={tab.notes}
                     onChange={handleChange}
                 />
 

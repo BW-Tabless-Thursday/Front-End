@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -43,7 +43,6 @@ const useStyles = makeStyles(theme => ({
     },
     right: {
       display: 'flex',
-
     },
     left: {
 
@@ -55,6 +54,7 @@ const useStyles = makeStyles(theme => ({
   }));
   
   export default function TabPreview(props) {
+
     const {tabs, setTabs, current_user} = useContext(TabContext);
 
     const classes = useStyles();
@@ -72,7 +72,6 @@ const useStyles = makeStyles(theme => ({
         
     const handleDelete = (event) => {
         event.preventDefault()
-        //insert the MODAL here?
         if (window.confirm(`Are you sure you want to delete ${props.tab.name} tab?`)) {
             
             api()

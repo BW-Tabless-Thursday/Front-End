@@ -6,15 +6,12 @@ blue: #374785;
 dark blue: #24305E; */
 
 .CategoryCard{
-    /* margin: 2rem 4rem;
-    padding: 1.5rem; */
     border: 1px solid #24305E;
     width: 10rem;
     text-align: center;
     background-color: #24305E;
     color: white;
     text-shadow: 0 0 5px #F8E9A1;
-    /* color: rgb(148, 160, 167); */
 }
 
 .CategoryCard:hover{

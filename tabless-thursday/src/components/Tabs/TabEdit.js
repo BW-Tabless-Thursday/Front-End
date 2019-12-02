@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import api from "../../utils/api";
 
 import { TabContext } from "../../contexts/TabContext";
-import { CategoryContext } from "../../contexts/CategoryContext";
+// import { CategoryContext } from "../../contexts/CategoryContext";
 
 export default function TabEdit(props) {
 
-	const {setTabs, current_user} = useContext(TabContext);
+	const {tabs, setTabs, current_user} = useContext(TabContext);
 	// const { categories, setCategories } = useContext(CategoryContext);
 	// console.log(categories)
 
 	// const [categories, setCategories] = useState([]);
 	const [tab, setTab] = useState({
 		// "id" : props.tab.id,
-		"url" : "",
-        "name" : "",
-		"notes" : "",
+		"url" : tabs.url,
+        "name" : tabs.name,
+		"notes" : tabs.notes,
 		"user_id": current_user,
 		// "category_id": categories.id,
         // "category" : "",	
@@ -31,17 +31,15 @@ export default function TabEdit(props) {
     }
 
 	const handleSubmit = (event) => {
-		event.preventDefault()
-		console.log(current_user)
-		console.log(tab)
+		event.preventDefault();
+		console.log(current_user);
+		console.log(tab);
 
 		api()
 			.put(`tabs/${current_user}/${props.tab.id}`, tab)
 			.then((result) => {
 				setTabs(result.data.tabs);
 				props.setEditing(false)
-				// props.history.push("/account")
-				// props.setTabs([])
 			})
 			.catch((error) => {
 				console.log(error)
@@ -49,7 +47,7 @@ export default function TabEdit(props) {
 	}
 
 	return (
-		<>
+		<div>
 			<h1>Edit Tab</h1>
 
 			<form onSubmit={(e, id) => handleSubmit(e, id)}>
@@ -90,6 +88,6 @@ export default function TabEdit(props) {
 				<button type="submit">Save</button>
                 <button onClick={() => props.setEditing(false)}>Cancel</button>
 			</form>
-		</>
+		</div>
 	)
 }
