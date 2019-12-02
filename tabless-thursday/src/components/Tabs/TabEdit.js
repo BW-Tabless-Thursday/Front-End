@@ -1,44 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import api from "../../utils/api";
+
+import { TabContext } from "../../contexts/TabContext";
+// import { CategoryContext } from "../../contexts/CategoryContext";
 
 export default function TabEdit(props) {
 
-	const [categories, setCategories] = useState([]);
+	const {tabs, setTabs, current_user} = useContext(TabContext);
+	// const { categories, setCategories } = useContext(CategoryContext);
+	// console.log(categories)
+
+	// const [categories, setCategories] = useState([]);
 	const [tab, setTab] = useState({
 		// "id" : props.tab.id,
-		"url" : "",
-        "name" : "",
-		"notes" : "",
-		"user_id": props.location.state,
+		"url" : tabs.url,
+        "name" : tabs.name,
+		"notes" : tabs.notes,
+		"user_id": current_user,
 		// "category_id": categories.id,
-        // "category" : categories.category,	
+        // "category" : "",	
     })
 
-    
-    
-    useEffect(() => {
-        api()
-            .get("/tabs/categories")
-            .then((result) => {
-				console.log(result.data)
-				setCategories(result.data)
-				
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-	}, [])
 	
-	// useEffect(() => {
-    //     api()
-	// 		.get(`tabs/${props.location.state}`)
-    //         .then((result) => {
-    //             console.log(result.data)
-    //         })
-    //         .catch((error) => {
-    //             console.log(error)
-    //         })
-    // }, [])
 
 	const handleChange = (event) => {
 		setTab({
@@ -47,17 +30,16 @@ export default function TabEdit(props) {
 		})
     }
 
-	const handleSubmit = (event, id) => {
-		event.preventDefault()
-		console.log(props.location.state)
-		console.log(tab)
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		console.log(current_user);
+		console.log(tab);
 
 		api()
-			.put(`tabs/${props.location.state}/${props.tab.id}`, tab)
+			.put(`tabs/${current_user}/${props.tab.id}`, tab)
 			.then((result) => {
-				props.setTabs(result.data.tabs)
-				// props.history.push("/account")
-				// props.setTabs([])
+				setTabs(result.data.tabs);
+				props.setEditing(false)
 			})
 			.catch((error) => {
 				console.log(error)
@@ -65,7 +47,7 @@ export default function TabEdit(props) {
 	}
 
 	return (
-		<>
+		<div>
 			<h1>Edit Tab</h1>
 
 			<form onSubmit={(e, id) => handleSubmit(e, id)}>
@@ -106,6 +88,6 @@ export default function TabEdit(props) {
 				<button type="submit">Save</button>
                 <button onClick={() => props.setEditing(false)}>Cancel</button>
 			</form>
-		</>
+		</div>
 	)
 }

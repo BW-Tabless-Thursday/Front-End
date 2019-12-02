@@ -1,66 +1,15 @@
-// import React, { useState, useEffect } from "react";
-// import api from "../../utils/api";
+import React, { useState, useContext } from 'react';
 
-// import TabEdit from "./TabEdit";
-
-// export default function TabPreview(props){
-    
-//     const [editing, setEditing] = useState(false);
-
-//     const editTab = () => {
-//         setEditing(true)
-//     }
-
-//     const handleDelete = (event) => {
-// 		event.preventDefault()
-
-// 		if (window.confirm(`Are you sure you want to delete ${props.tab.name} tab?`)) {
-			
-// 			api()
-// 				.delete(`/tabs/${props.tab.user_id}/${props.tab.id}`)
-// 				.then((result) => {
-//                     props.setTabs(result.data.tabs)
-// 					console.log("Tab was deleted")
-// 				})
-// 				.catch((error) => {
-// 					console.log(error)
-// 					props.setTabs([...props.tabs, props.tab])
-// 				})
-// 		}
-// 	}
-
-//     return(
-//         <div>
-//             <h3>{props.tab.name}</h3>
-//             <p>{props.tab.url}</p>
-//             <p>{props.tab.notes}</p>
-//             <p>{props.tab.category}</p>
-
-//             <button onClick={(e) => handleDelete(e)}>
-// 				Delete
-// 			</button>
-
-//             <button onClick={() => editTab()}>
-// 				Edit
-// 			</button>
-
-//             {editing &&
-//                 <TabEdit  tab={props.tab} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>}
-//         </div>
-//     )
-// }
-
-
-//**********expansion panels************* */
-import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import api from "../../utils/api";
 import TabEdit from "./TabEdit";
+import { TabContext } from "../../contexts/TabContext";
 
 
 const useStyles = makeStyles(theme => ({
@@ -94,7 +43,6 @@ const useStyles = makeStyles(theme => ({
     },
     right: {
       display: 'flex',
-
     },
     left: {
 
@@ -106,6 +54,9 @@ const useStyles = makeStyles(theme => ({
   }));
   
   export default function TabPreview(props) {
+
+    const {tabs, setTabs, current_user} = useContext(TabContext);
+
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
 
@@ -121,18 +72,17 @@ const useStyles = makeStyles(theme => ({
         
     const handleDelete = (event) => {
         event.preventDefault()
-        //insert the MODAL here?
         if (window.confirm(`Are you sure you want to delete ${props.tab.name} tab?`)) {
             
             api()
-                .delete(`/tabs/${props.tab.user_id}/${props.tab.id}`)
+                .delete(`/tabs/${current_user}/${props.tab.id}`)
                 .then((result) => {
-                    props.setTabs(result.data.tabs)
+                    setTabs(result.data.tabs)
                     console.log("Tab was deleted")
                 })
                 .catch((error) => {
                     console.log(error)
-                    props.setTabs([...props.tabs, props.tab])
+                    setTabs([...tabs, props.tab])
                 })
         }
     }
@@ -167,7 +117,7 @@ const useStyles = makeStyles(theme => ({
                 Edit
               </button>
               {editing &&
-                <TabEdit  tab={props.tab} setEditing={setEditing} tabs={props.tabs} setTabs={props.setTabs} location={props.location}/>}
+                <TabEdit  tab={props.tab} setEditing={setEditing}/>}
               </div>
                 </div>
             </ExpansionPanelDetails>

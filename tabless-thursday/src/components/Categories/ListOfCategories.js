@@ -1,53 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import api from "../../utils/api";
 
+import { CategoryContext } from "../../contexts/CategoryContext";
+import { TabContext } from "../../contexts/TabContext";
+
 import CategoryCard from "./Category";
+import TabPreview from "../Tabs/Tab";
 
 import "./Category.css";
 
-export default function ListOfCategories(props){
+export default function ListOfCategories(){
 
     const [categories, setCategories] = useState([]);
+    const {tabs} = useContext(TabContext);
 
     useEffect(() => {
         api()
             .get("/tabs/categories")
             .then((result) => {
-				console.log(result.data)
-				setCategories(result.data)
-				
+				console.log(result.data);
+				setCategories(result.data);
             })
             .catch((error) => {
-                console.log(error)
+                console.log(error);
             })
     }, [])
+
+    console.log(categories);
     
-    function ShowCategories(event, id){
+    function ShowCategories(event){
         event.preventDefault();
-
-        api()
-		  .get(`tabs/${props.location.state}`)
-		  .then(response => {
-            console.log(response.data.tabs)
-            // setCategories(categories.filter((category) => category.id === id))
-            props.setTabs(props.tabs.filter((tab) =>  tab.category_id === id))
-		  })
-		  .catch(error => {
-			console.log(error);
-		  });
-
+        console.log(tabs);
+        // tabs.map(tab => {
+        //     if (tab.category_id === categories.id){
+        //         return <TabPreview key={tab.id} tab={tab}/>
+        // }})
     }
 
     return(
-        <div className="CategoriesList">
-
-            {categories &&
-                categories.map(category => (
-                    <div onClick={(e) => ShowCategories(e, category.id)}>
-                        <CategoryCard key={category.id} category={category}/>
-                    </div>
-            ))}
-
-        </div>
+        <CategoryContext.Provider value={{ categories, setCategories }} >
+            <div className="CategoriesList">
+                {categories &&
+                    categories.map(category => (
+                        <div onClick={(e) => ShowCategories(e)}>
+                            <CategoryCard key={category.id} category={category}/>
+                        </div>
+                ))}
+            </div>
+        </CategoryContext.Provider>
     )
 }

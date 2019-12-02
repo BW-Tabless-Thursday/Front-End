@@ -9,7 +9,7 @@ export default function Signup(props) {
 
 	const loggedIn = getToken();
 
-	const [error, setError] = useState()
+	const [error, setError] = useState();
 	const [data, setData] = useState({
 		username: "",
 		password: "",
@@ -29,8 +29,7 @@ export default function Signup(props) {
 			.post("/auth/register", data)
 			.then(result => {
 				localStorage.setItem("token", result.data.token);
-				// change the way!!!! CHECK WHY IT'S redirect you to login when you go from Mark Page to sign up
-				props.history.push("/login")
+				props.history.push("/login");
 			})
 			.catch(err => {
 				setError(err.response.data.message)

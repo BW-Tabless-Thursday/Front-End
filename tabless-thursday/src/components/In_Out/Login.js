@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-// import { connect } from "react-redux";
 
 import api from "../../utils/api";
 import "./Login.css";
@@ -32,15 +31,15 @@ export default function Login(props) {
 			.post("/auth/login", data)
 			.then(result => {
 				localStorage.setItem("token", result.data.token);
-				// change the way!!!!
-				console.log(result.data)
+				localStorage.setItem("id", result.data.id);
+				console.log(result.data);
 				props.history.push({
 					pathname: "/account",
 					state: result.data.id
 				})
 			})
 			.catch(err => {
-				setError(err.response.data.message)
+				setError(err.response.data.message);
 			})
 	}
 	

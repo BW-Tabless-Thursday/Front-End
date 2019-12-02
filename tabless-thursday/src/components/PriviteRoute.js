@@ -12,7 +12,6 @@ export default function PriviteRoute(props) {
 			if (localStorage.getItem("token")) {
 				return <Component {...renderProps} />
 			} else {
-                // change the way!!!!
 				return <Redirect to="/login" />
 			}
 		}} />

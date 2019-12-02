@@ -1,15 +1,11 @@
-//Form Element for creating the tab that will be saved.
-//This form will show up in a modal
-//Tab Title will serve as visual -- User Typed
-//Tab Link will be the copy and pasted link
-//Tab Notes will be reminder text user input
-//Category : where you can select or input a category for organization
-//submit button
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import api from "../../utils/api";
 
-function CreateTabs(props) {
+import { TabContext } from "../../contexts/TabContext";
+
+function CreateTabs() {
+
+    const {tabs, setTabs, current_user} = useContext(TabContext);
 
     const [tab, setTab] = useState({
 		id : "",
@@ -21,19 +17,7 @@ function CreateTabs(props) {
         category : "",	
     })
 
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        api()
-            .get("/tabs/categories")
-            .then((result) => {
-                setCategories(result.data)
-                console.log(result.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }, [])
+    
 
     function handleSubmit(e){
         e.preventDefault();
@@ -44,15 +28,15 @@ function CreateTabs(props) {
             "name": tab.name,
             "notes": tab.notes,
             // "user_id": props.location.state,
-            "category_id": categories.id
+            // "category_id": categories.id
             // "category": tab.category
         }
 
         api()
-            .post(`/tabs/${props.location.state}`, addNewTab)
+            .post(`/tabs/${current_user}`, addNewTab)
             .then(response => {
                 console.log(response.data.tabs);
-                props.setTabs([...props.tabs, addNewTab])
+                setTabs([...tabs, addNewTab]);
                 setTab({
                     id : "",
                     url : "",
@@ -87,14 +71,6 @@ function CreateTabs(props) {
 				/>
 
                 <input 
-                    type="text"
-                    placeholder="Notes"
-                    name="notes"
-                    value={tab.notes}
-                    onChange={handleChange}
-                />
-
-                <input 
                     type="url"
                     placeholder="URL"
                     name="url"
@@ -102,7 +78,15 @@ function CreateTabs(props) {
                     onChange={handleChange}
                 />
 
-                <select 
+                <input 
+                    type="text"
+                    placeholder="Notes"
+                    name="notes"
+                    value={tab.notes}
+                    onChange={handleChange}
+                />
+
+                {/* <select 
                     name="category" 
                     value={tab.category} 
                     onChange={handleChange}>
@@ -110,7 +94,7 @@ function CreateTabs(props) {
                             categories.map(category =>
                                 <option key={category.id} value={category.category} >{category.category}</option>
                         )}
-                </select>
+                </select> */}
 
                 <button type="submit">Add new Tab</button>
 		    </form>

@@ -35,7 +35,6 @@ dark blue: #24305E; */
 .Input{
     width: 70%;
     margin: 25px auto;
-    /* font-size: 200%; */
     text-align: center;
     border: 1px solid #24305E;
     border-radius: 15px;
@@ -46,7 +45,6 @@ dark blue: #24305E; */
     width: 150px;
     height: 35px;
     margin: 25px auto;
-    /* font-size: 150%; */
     text-align: center;
     border: 1px solid #24305E;
     border-radius: 15px;
